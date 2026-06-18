@@ -1,9 +1,9 @@
 ---
 title: Configuración del widget (EDS)
 description: Aprenda a configurar un proyecto de widget de Edge Delivery Services e implementar el contrato de bloque para procesar respuestas visuales dentro de plataformas LLM.
-source-git-commit: 483a71f5f1de5caf1bd89b26f4d67d2d5a0aa15a
+source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
 workflow-type: tm+mt
-source-wordcount: '1214'
+source-wordcount: '1226'
 ht-degree: 1%
 
 ---
@@ -13,7 +13,9 @@ ht-degree: 1%
 
 >[!IMPORTANT]
 >
->[!DNL Adobe LLM Apps] se encuentra actualmente en Beta. Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto.
+>[!DNL Adobe LLM Apps] se encuentra actualmente en Beta.
+>
+>Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
 Esta guía explica cómo crear un widget EDS de extremo a extremo: desde configurar la acción en la interfaz de usuario de [!DNL LLM Apps], hasta configurar el proyecto EDS y escribir el código de bloque que procesa los datos dentro de la plataforma LLM. Para obtener información general de alto nivel, consulte [Conceptos principales](/help/overview/overview.md#widgets-eds).
 

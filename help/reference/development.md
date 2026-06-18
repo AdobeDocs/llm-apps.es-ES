@@ -1,9 +1,9 @@
 ---
 title: Desarrollo para aplicaciones LLM de Adobe
 description: Estructura del proyecto, flujo de trabajo de desarrollo local y configuración de pruebas para el código del controlador de aplicaciones LLM de Adobe.
-source-git-commit: 51ffb31eec82f9639bd7ade9052d61028c262d0e
+source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
 workflow-type: tm+mt
-source-wordcount: '318'
+source-wordcount: '324'
 ht-degree: 4%
 
 ---
@@ -13,9 +13,11 @@ ht-degree: 4%
 
 >[!IMPORTANT]
 >
->**Descargo de responsabilidad:** Esta es una versión beta de [!DNL LLM Apps]. Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final de la aplicación o del producto.
+>[!DNL Adobe LLM Apps] se encuentra actualmente en Beta.
+>
+>Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
-Esta sección describe la estructura del proyecto de controlador, el flujo de trabajo de desarrollo local y la configuración de pruebas. Para obtener el contrato de controlador y el código de ejemplo, vea [Escribir el controlador de acciones](/help/guides/write-action-handler.md).
+Esta sección describe la estructura del proyecto de controlador, el flujo de trabajo de desarrollo local y la configuración de pruebas para [!DNL Adobe LLM Apps]. Para obtener el contrato de controlador y el código de ejemplo, vea [Escribir el controlador de acciones](/help/guides/write-action-handler.md).
 
 ## Estructura del proyecto
 

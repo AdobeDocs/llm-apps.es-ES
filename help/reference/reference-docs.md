@@ -1,21 +1,23 @@
 ---
 title: Documentación de referencia para aplicaciones LLM de Adobe
 description: Referencia de nivel de campo para la configuración de acciones en la IU de aplicaciones LLM de Adobe.
-source-git-commit: 98d5590c927bf8ffad54061ee027664452c129c1
+source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
 workflow-type: tm+mt
-source-wordcount: '494'
+source-wordcount: '500'
 ht-degree: 6%
 
 ---
 
 
-# Referencia {#reference}
+# Material de referencia {#reference-material}
 
 >[!IMPORTANT]
 >
->**Descargo de responsabilidad:** Esta es una versión beta de [!DNL LLM Apps]. Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final de la aplicación o del producto.
+>[!DNL Adobe LLM Apps] se encuentra actualmente en Beta.
+>
+>Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
-Esta sección proporciona una referencia de nivel de campo para la configuración de acciones en la interfaz de usuario de [!DNL LLM Apps].
+Esta sección proporciona una referencia de nivel de campo para la configuración de acciones en la interfaz de usuario de [!DNL Adobe LLM Apps].
 
 ## Parámetros de acción
 

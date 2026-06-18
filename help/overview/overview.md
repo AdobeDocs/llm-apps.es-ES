@@ -1,7 +1,7 @@
 ---
 title: Información general sobre las aplicaciones LLM de Adobe
 description: Aprenda qué es Adobe LLM Apps, cómo funciona y lo que necesita para empezar.
-source-git-commit: 98d5590c927bf8ffad54061ee027664452c129c1
+source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
 workflow-type: tm+mt
 source-wordcount: '873'
 ht-degree: 1%
@@ -11,9 +11,11 @@ ht-degree: 1%
 
 # Aplicaciones LLM de Adobe: Información general {#adobe-llm-apps-an-overview}
 
->[!NOTE]
+>[!IMPORTANT]
 >
->[!DNL Adobe LLM Apps] se encuentra actualmente en Beta. Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
+>[!DNL Adobe LLM Apps] se encuentra actualmente en Beta.
+>
+>Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
 ## ¿Qué es [!DNL Adobe LLM Apps]?
 
