@@ -1,17 +1,23 @@
 ---
 title: Requisitos previos para las aplicaciones LLM de Adobe
 description: Lo que debe configurar antes de su sesión de incorporación de Adobe LLM Apps Beta.
-source-git-commit: 98d5590c927bf8ffad54061ee027664452c129c1
+source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
 workflow-type: tm+mt
-source-wordcount: '539'
-ht-degree: 2%
+source-wordcount: '571'
+ht-degree: 1%
 
 ---
 
 
 # Requisitos previos para las aplicaciones LLM de Adobe {#prerequisites-for-adobe-llm-apps}
 
-Antes de la sesión de incorporación con Adobe, confirme que dispone de lo siguiente. Cuando sea posible, ejecute los pasos de verificación a continuación: los resultados le indican quién debe estar en la sala, no si puede continuar.
+>[!IMPORTANT]
+>
+>[!DNL Adobe LLM Apps] se encuentra actualmente en Beta.
+>
+>Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
+
+Antes de la sesión de incorporación de [!DNL Adobe LLM Apps] con Adobe, confirme que dispone de lo siguiente. Cuando sea posible, ejecute los pasos de verificación a continuación: los resultados le indican quién debe estar en la sala, no si puede continuar.
 
 ## Adobe Developer Console
 

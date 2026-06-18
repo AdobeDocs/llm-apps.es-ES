@@ -1,9 +1,9 @@
 ---
 title: Escribir el controlador de acciones
 description: Aprenda a escribir un controlador de acciones para la aplicación LLM de Adobe, incluido el contrato del controlador, structuredContent y un ejemplo práctico.
-source-git-commit: 483a71f5f1de5caf1bd89b26f4d67d2d5a0aa15a
+source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
 workflow-type: tm+mt
-source-wordcount: '714'
+source-wordcount: '719'
 ht-degree: 0%
 
 ---
@@ -13,9 +13,11 @@ ht-degree: 0%
 
 >[!IMPORTANT]
 >
->**Descargo de responsabilidad:** Esta es una versión beta de [!DNL LLM Apps]. Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final de la aplicación o del producto.
+>[!DNL Adobe LLM Apps] se encuentra actualmente en Beta.
+>
+>Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
-Después de crear una acción en la interfaz de usuario, los metadatos se almacenan en la API [!DNL LLM Apps], pero aún no hay código detrás. Esta guía le explica cómo escribir la función de controlador que se ejecuta cuando una plataforma LLM (como [!DNL ChatGPT] o Claude) invoca su acción.
+Después de crear una acción en la interfaz de usuario de [!DNL Adobe LLM Apps], los metadatos se almacenan en la API de [!DNL LLM Apps], pero aún no hay código detrás de ellos. Esta guía le explica cómo escribir la función de controlador que se ejecuta cuando una plataforma LLM (como [!DNL ChatGPT] o Claude) invoca su acción.
 
 Para obtener detalles sobre diseño del proyecto, desarrollo local y pruebas, vea [Desarrollo](/help/reference/development.md).
 

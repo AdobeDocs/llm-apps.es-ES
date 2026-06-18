@@ -1,9 +1,9 @@
 ---
 title: Integración de Beta para aplicaciones LLM de Adobe
 description: Introducción a Adobe LLM Aplicaciones como participante del programa de Beta.
-source-git-commit: 98d5590c927bf8ffad54061ee027664452c129c1
+source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
 workflow-type: tm+mt
-source-wordcount: '1551'
+source-wordcount: '1557'
 ht-degree: 0%
 
 ---
@@ -13,13 +13,15 @@ ht-degree: 0%
 
 >[!IMPORTANT]
 >
->**Descargo de responsabilidad:** Esta es una versión beta de [!DNL LLM Apps]. Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final de la aplicación o del producto.
+>[!DNL Adobe LLM Apps] se encuentra actualmente en Beta.
+>
+>Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
 >[!NOTE]
 >
 >Antes de empezar, asegúrese de que se cumplan todos los [requisitos previos](/help/beta-onboarding/prerequisites.md).
 
-Como participante del programa de Beta, recibirá un correo electrónico con dos archivos zip y una referencia de configuración de la aplicación. Siga los pasos a continuación para activar la aplicación.
+Como participante del programa Beta de [!DNL Adobe LLM Apps], recibirá un correo electrónico con dos archivos zip y una referencia de configuración de la aplicación. Siga los pasos a continuación para activar la aplicación.
 
 ## Antes de empezar
 
