@@ -73,7 +73,7 @@ A continuación, cree el bloque siguiendo el contrato [`decorate(block, bridge)`
 
 ### Creación del repositorio
 
-1. Cree un nuevo repositorio [!DNL GitHub] basado en la plantilla [AEM ](https://github.com/adobe/aem-boilerplate).
+1. Cree un nuevo repositorio [!DNL GitHub] basado en la plantilla [AEM &#x200B;](https://github.com/adobe/aem-boilerplate).
 2. Agregue la [aplicación GitHub de sincronización de código de AEM](https://github.com/apps/aem-code-sync) al repositorio.
 3. Instale la CLI de AEM para el desarrollo local: `npm install -g @adobe/aem-cli`.
 4. Instalar `@adobe/llmapps-sdk`. El script posterior a la instalación copia `aem-embed.js` y `llmapps-sdk.js` en `scripts/llm-apps/`:
