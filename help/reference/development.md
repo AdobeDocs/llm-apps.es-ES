@@ -1,15 +1,15 @@
 ---
-title: Desarrollo
+title: Desarrollo para aplicaciones LLM de Adobe
 description: Estructura del proyecto, flujo de trabajo de desarrollo local y configuración de pruebas para el código del controlador de aplicaciones LLM de Adobe.
-source-git-commit: 483a71f5f1de5caf1bd89b26f4d67d2d5a0aa15a
+source-git-commit: 51ffb31eec82f9639bd7ade9052d61028c262d0e
 workflow-type: tm+mt
-source-wordcount: '314'
+source-wordcount: '318'
 ht-degree: 4%
 
 ---
 
 
-# Desarrollo
+# Desarrollo {#development}
 
 >[!IMPORTANT]
 >
