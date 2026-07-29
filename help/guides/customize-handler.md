@@ -1,9 +1,9 @@
 ---
 title: Personalizar un controlador de acciones generado
 description: Comprenda el contrato del controlador de aplicaciones LLM de Adobe, reemplace los datos de muestra generados y mantenga la salida del controlador alineada con su widget.
-source-git-commit: eec74b87457bc852d7a8dd0e46c2a4385a93ae0a
+source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
 workflow-type: tm+mt
-source-wordcount: '542'
+source-wordcount: '541'
 ht-degree: 0%
 
 ---
@@ -17,7 +17,7 @@ ht-degree: 0%
 >
 >Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
-El agente de integración crea un controlador de trabajo para cada acción generada. El controlador devuelve inicialmente datos de ejemplo para que pueda probar la experiencia completa.
+La plataforma crea un controlador de trabajo para cada acción generada. El controlador devuelve inicialmente datos de ejemplo para que pueda probar la experiencia completa.
 
 Utilice esta guía para comprender el contrato del controlador y reemplazar los datos de ejemplo con las API o fuentes de datos.
 

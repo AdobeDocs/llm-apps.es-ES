@@ -1,5 +1,5 @@
 ---
-source-git-commit: eec74b87457bc852d7a8dd0e46c2a4385a93ae0a
+source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
 workflow-type: tm+mt
 source-wordcount: '398'
 ht-degree: 0%
@@ -39,7 +39,7 @@ Los nombres de archivo de Source no necesitan coincidir con los nombres de archi
 
 - Estado: la página Acciones mientras la incorporación está activa.
 - Include: mensaje de progreso y pasos de generación.
-- Texto alternativo: `Actions — Onboarding Agent generating recommendations`
+- Texto alternativo: `Actions — generating recommendations`
 
 ### `actions-ready-for-review.png`
 
@@ -103,7 +103,7 @@ Los nombres de archivo de Source no necesitan coincidir con los nombres de archi
 ### `chatgpt-plugin-connect.png`
 
 - Estado: Confirmación después de la creación del complemento.
-- Incluir: **Agregar <plugin> a ChatGPT &#x200B;** y**&#x200B; Connect &#x200B;**.
+- Incluir: **Agregar <plugin> a ChatGPT **y** Connect **.
 - Máscara: URL del explorador e identificadores de conector.
 - Texto alternativo: `ChatGPT — connect the new plugin`
 

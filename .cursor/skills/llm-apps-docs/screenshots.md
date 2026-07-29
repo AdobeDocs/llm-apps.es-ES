@@ -1,7 +1,7 @@
 ---
-source-git-commit: eec74b87457bc852d7a8dd0e46c2a4385a93ae0a
+source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
 workflow-type: tm+mt
-source-wordcount: '695'
+source-wordcount: '696'
 ht-degree: 0%
 
 ---
@@ -76,7 +76,7 @@ El usuario debe capturar los estados relevantes del manifiesto, incluidos:
 1. Cree una aplicación antes de conectar GitHub.
 2. Selección de acceso al repositorio de la aplicación de GitHub.
 3. **Crear mi aplicación automáticamente** habilitada con ambos repositorios seleccionados.
-4. Creación de la aplicación o inicio del agente de integración.
+4. Creación de aplicaciones o inicio automático de la generación de aplicaciones.
 5. Acciones que se generan.
 6. Acciones generadas listas para revisión.
 7. Metadatos, controladores y widgets de una acción representativa.

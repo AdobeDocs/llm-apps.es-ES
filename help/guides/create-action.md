@@ -1,9 +1,9 @@
 ---
 title: Crear una acción desde cero
 description: Defina metadatos de acción, implemente su controlador, conecte un widget EDS, pruébelo e impleméntelo con aplicaciones LLM de Adobe.
-source-git-commit: 4c259a4587c0a84bb634a9a56c043dfe1cfc31fb
+source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
 workflow-type: tm+mt
-source-wordcount: '1141'
+source-wordcount: '1137'
 ht-degree: 0%
 
 ---
@@ -21,11 +21,11 @@ ht-degree: 0%
 >
 >Esta guía supone una familiaridad básica con Adobe Edge Delivery Services (EDS). Si es nuevo en EDS, lea primero el [tutorial para desarrolladores de EDS](https://www.aem.live/developer/tutorial) y [Exploración de bloques](https://www.aem.live/docs/exploring-blocks) para conocer los aspectos básicos — bloques, la función `decorate` y la estructura del proyecto EDS — antes de conectar un widget.
 
-Utilice esta guía para añadir una capacidad que el agente de incorporación no ha creado. Definirá la acción en [!DNL LLM Apps], escribirá su controlador en el repositorio vinculado, agregará un widget si es necesario, lo probará e implementará.
+Utilice esta guía para añadir una capacidad que la plataforma no ha creado. Definirá la acción en [!DNL LLM Apps], escribirá su controlador en el repositorio vinculado, agregará un widget si es necesario, lo probará e implementará.
 
 **Recorrido:** Planifique la acción → crear sus metadatos → escribir el controlador → conectar el widget → probar localmente → implementar y probar el complemento.
 
-Para tu primera aplicación, comienza con [Crea tu primera aplicación con el agente de incorporación](/help/guides/create-app.md).
+Para tu primera aplicación, comienza con [Crea tu primera aplicación automáticamente](/help/guides/create-app.md).
 
 ## Antes de empezar
 

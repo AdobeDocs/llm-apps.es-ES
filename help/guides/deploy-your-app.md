@@ -1,9 +1,9 @@
 ---
 title: Implemente la aplicación
 description: Aprenda a implementar la aplicación LLM de Adobe en el ensayo y la producción mediante la interfaz de usuario de las aplicaciones LLM.
-source-git-commit: eec74b87457bc852d7a8dd0e46c2a4385a93ae0a
+source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
 workflow-type: tm+mt
-source-wordcount: '309'
+source-wordcount: '322'
 ht-degree: 0%
 
 ---
@@ -19,7 +19,7 @@ ht-degree: 0%
 
 Una vez que haya escrito el código del controlador y lo haya insertado en el repositorio vinculado, puede implementar la aplicación desde la interfaz de usuario de [!DNL LLM Apps].
 
-Este es un paso compartido para cada recorrido. Después de la implementación, continúe [probando el complemento ChatGPT](/help/guides/test-in-chatgpt.md).
+Este es un paso compartido para cada recorrido. Después de la implementación, continúe [probando el complemento ChatGPT](/help/guides/test-in-chatgpt.md) o [probando el conector Claude](/help/guides/test-in-claude.md).
 
 ## Inicio de la implementación
 
@@ -63,5 +63,6 @@ implementación más reciente correcta.
 
 ## Siguiente paso
 
-[Probar la aplicación implementada como un complemento de ChatGPT](/help/guides/test-in-chatgpt.md).
+- [Probar la aplicación implementada como un complemento de ChatGPT](/help/guides/test-in-chatgpt.md).
+- [Probar la aplicación implementada como un conector Claude](/help/guides/test-in-claude.md).
 
