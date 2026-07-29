@@ -1,9 +1,9 @@
 ---
-title: Solución de problemas para aplicaciones LLM de Adobe
-description: Soluciones para problemas comunes al crear, implementar y probar aplicaciones LLM de Adobe.
-source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
+title: Solucionar problemas de aplicaciones LLM de Adobe
+description: Resuelva problemas comunes de repositorio, incorporación, controlador, widget, implementación y complemento de ChatGPT.
+source-git-commit: eec74b87457bc852d7a8dd0e46c2a4385a93ae0a
 workflow-type: tm+mt
-source-wordcount: '451'
+source-wordcount: '632'
 ht-degree: 0%
 
 ---
@@ -17,47 +17,55 @@ ht-degree: 0%
 >
 >Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
-Proporciona información de solución de problemas al trabajar con [!DNL Adobe LLM Apps].
+Comience con el síntoma que pueda ver. No comparta credenciales, tokens, direcciones URL de MCP privadas ni resultados de controladores confidenciales durante la solución de problemas.
 
-## Problemas comunes
+## Creación e incorporación de aplicaciones
 
-| Síntoma | Posible causa | Qué debe probar |
-|---------|----------------|-------------|
-| La aplicación no aparece en la plataforma LLM | La suscripción a la plataforma LLM no admite aplicaciones MCP personalizadas o el modo de desarrollador no está habilitado | Verifique que su plan admita aplicaciones MCP personalizadas. Habilitar el modo de desarrollador en **Configuración → aplicaciones → Configuración avanzada** |
-| Error &quot;No se pudo conectar&quot; en la plataforma LLM | La URL del servidor MCP es incorrecta o la implementación ha fallado | Compruebe la URL desde la página Detalles de la aplicación. Compruebe si hay errores en el historial de implementación |
-| No se invoca la acción | La plataforma LLM no pudo hacer coincidir la pregunta del usuario con su acción | Use `@YourApp` para invocarlo explícitamente. Mejore la descripción de la acción para ayudar al modelo a coincidir con la intención |
-| El widget no se procesa | Las direcciones URL de los widgets EDS o los dominios CSP están mal configurados | Compruebe la URL de script y la URL de incrustación de widget en el cuadro de diálogo Crear acción. Compruebe que el recurso CSP y los dominios de conexión incluyen su origen EDS |
-| Respuesta vacía o de error | El controlador tiene un error o falta | Realice la prueba localmente con `npm start` primero. Ver [desarrollo local](/help/reference/development.md#local-development) |
-| El widget se carga pero no muestra datos | La forma `structuredContent` no coincide con lo que espera el bloque | Registre `bridge.toolResult` en la función `decorate` del bloque y compárelo con la salida del controlador |
-| La implementación falla en &quot;Clonar y generar&quot; | `npm install` o error de compilación del Webpack en su repositorio | Ejecute `npm install && npm run build` localmente para reproducir el error |
-| La implementación falla en &quot;Recopilar credenciales&quot; | Repositorio no vinculado o proyecto de Developer Console mal configurado | Compruebe que el repositorio está vinculado en la página de configuración de los detalles de la aplicación |
-| Error de CORS al cargar el widget | Faltan `access-control-allow-origin` encabezados en el sitio EDS | Configurar encabezados CORS mediante `admin.hlx.page` |
-| El editor de encabezados HTTP devuelve `404 Error updating config: config not found` al guardar los encabezados CORS | Falta una sección `headers` en la configuración del sitio | Consulte [Inicializar la sección de encabezados de configuración del sitio EDS](#initialize-the-eds-site-config-headers-section) a continuación |
-| El widget se procesa en la vista previa pero no en la plataforma LLM | El bloque vuelve a los datos de muestra en el modo de vista previa, pero falla con los datos activos | Probar con `structuredContent` real utilizando el Inspector MCP o curl |
+| Síntoma | Qué debe probar |
+|---------|-------------|
+| Los nuevos repositorios no aparecen | Seleccione **Administrar repositorios en GitHub**, conceda acceso a la aplicación GitHub de aplicaciones LLM de Adobe a ambos repositorios, vuelva al cuadro de diálogo y actualice las listas |
+| El repositorio EDS requiere la sincronización de código AEM | Instale la sincronización de código de AEM para el repositorio EDS y vuelva al cuadro de diálogo Crear aplicación LLM |
+| La validación de EDS indica que no es administrador | Seleccione **Abrir el administrador de AEM Live**, añádase como administrador del sitio de EDS y actualice el repositorio |
+| La incorporación sigue generándose | Se tardan aproximadamente 15 minutos. Puede salir de la página y volver más tarde |
+| Error de informes de incorporación | Confirme que ambos repositorios son accesibles y que el sitio web es público a través de HTTPS y, a continuación, póngase en contacto con el equipo de Beta con el mensaje de error visible |
 
-## Inicialice la sección Encabezados de configuración del sitio de EDS
+## Acciones y controladores
 
-Si el Editor de encabezados HTTP devuelve `404 Error updating config: config not found`, a la configuración del sitio le falta una sección `headers`. Arreglarlo manualmente:
+| Síntoma | Qué debe probar |
+|---------|-------------|
+| No se invoca la acción | Adjunte el complemento ChatGPT, confirme que **Exponer al modelo de IA** está habilitado, mejore la descripción de la acción y vuelva a implementar los cambios de metadatos |
+| Respuesta vacía o de error | Ejecute `npm test` y, a continuación, llame al controlador con el Inspector de MCP o `curl`. Ver [desarrollo y prueba de controladores locales](/help/reference/development.md) |
+| El controlador funciona localmente, pero no después de la implementación | Confirme que se insertó la última confirmación, que la configuración de tiempo de ejecución está presente y que el identificador del código de acción coincide con `actions/<code-identifier>/index.js` |
+| La acción generada no se puede marcar como revisada | Confirme la generación del controlador y el widget correctamente. Compruebe las solicitudes de extracción generadas en caso de conflictos de combinación, vuelva a cargar la acción y seleccione **Marcar como revisado** de nuevo |
 
-1. Vaya a [tools.aem.live/tools/headers-edit/index.html](https://tools.aem.live/tools/headers-edit/index.html), ingrese su organización y sitio y haga clic en **[!UICONTROL Buscar]**.
-2. Abra DevTools del explorador (pestaña Red) y copie el valor del encabezado `x-auth-token` de la solicitud de recuperación.
-3. Recupere la configuración actual del sitio:
+## Widgets
 
-   ```bash
-   curl -H "x-auth-token: $TOKEN" \
-     https://admin.hlx.page/config/<your-github-org>/sites/<your-eds-repo>.json > config.json
-   ```
+| Síntoma | Qué debe probar |
+|---------|-------------|
+| El widget no se procesa | Compruebe la URL del script, la URL del widget, HTTPS, la publicación EDS, los dominios CSP y los encabezados CORS |
+| El widget se procesa pero no muestra datos | Llame al controlador con el Inspector MCP y compare su forma `structuredContent` con los campos leídos de `bridge.toolResult` |
+| El widget funciona en la vista previa directa pero no en ChatGPT | La vista previa directa puede utilizar datos de ejemplo. Pruebe el resultado del controlador implementado y compruebe que CORS y CSP permiten el origen EDS |
+| La solicitud del explorador está bloqueada | Añada solo el origen requerido al campo CSP correcto y vuelva a implementar |
+| El Editor de encabezados HTTP no puede guardar la configuración | Use el [Servicio de configuración de AEM](https://aem.live/docs/config-service-setup) o pídale al administrador de EDS que inicialice la configuración de los encabezados del sitio |
 
-4. Abra `config.json` y agregue `"headers": {}` al objeto JSON.
-5. VUELVA A PUBLICAR la configuración actualizada:
+No registre valores `bridge.toolResult` completos cuando puedan contener datos personales o confidenciales.
 
-   ```bash
-   curl -X POST \
-     -H "x-auth-token: $TOKEN" \
-     -H "Content-Type: application/json" \
-     -d @config.json \
-     "https://admin.hlx.page/config/<your-github-org>/sites/<your-eds-repo>.json"
-   ```
+## Implementación
 
-6. Vuelva a cargar el Editor de encabezados y guarde el encabezado `Access-Control-Allow-Origin` de forma normal.
+| Síntoma | Qué debe probar |
+|---------|-------------|
+| Error de implementación durante **Preparación** | Compruebe que el repositorio del controlador está vinculado y que el acceso a Adobe Developer Console sigue siendo válido |
+| La implementación falla durante **Generar aplicación** | Ejecutar `npm install`, `npm test` y `npm run build` localmente. Corrija los errores de dependencia, sintaxis o prueba e inserte los cambios |
+| La implementación se realiza correctamente, pero faltan cambios | Confirme que la confirmación esperada se insertó y se volvió a implementar en el mismo entorno |
+| La acción permanece **No implementada** | Implementar de nuevo después de revisar la acción o cambiar sus metadatos |
 
+## Complementos de ChatGPT
+
+| Síntoma | Qué debe probar |
+|---------|-------------|
+| El complemento no aparece | Habilite el modo de desarrollador, abra [chatgpt.com/plugins](https://chatgpt.com/plugins), compruebe que el complemento existe y seleccione **Conectar** |
+| Error al crear el complemento | Confirme que el modo de desarrollador está habilitado, copie de nuevo la URL del servidor MCP de **Pruebe la aplicación** y use la **URL del servidor** con **Sin autenticación** |
+| El complemento se conecta pero no puede invocar acciones | Confirme que el complemento está adjunto al chat, que las acciones se exponen al modelo y que se implementa la versión más reciente |
+| El complemento utiliza un entorno incorrecto | Edite o vuelva a crear el complemento con la URL del servidor MCP de fase o producción deseada |
+
+Si el problema persiste, registre el nombre de la aplicación, el entorno, el paso en el que se ha producido un error, la hora y el mensaje de error visible antes de ponerse en contacto con el equipo de Beta. No incluya secretos ni datos confidenciales de clientes.

@@ -1,15 +1,15 @@
 ---
-title: Implemente su aplicación
+title: Implemente la aplicación
 description: Aprenda a implementar la aplicación LLM de Adobe en el ensayo y la producción mediante la interfaz de usuario de las aplicaciones LLM.
-source-git-commit: 1a99e2e80e50a3bcf9ce6fb910365202bf06e113
+source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
 workflow-type: tm+mt
-source-wordcount: '359'
+source-wordcount: '322'
 ht-degree: 0%
 
 ---
 
 
-# Implemente su aplicación
+# Implemente su aplicación {#deploy-your-app}
 
 >[!IMPORTANT]
 >
@@ -19,26 +19,24 @@ ht-degree: 0%
 
 Una vez que haya escrito el código del controlador y lo haya insertado en el repositorio vinculado, puede implementar la aplicación desde la interfaz de usuario de [!DNL LLM Apps].
 
+Este es un paso compartido para cada recorrido. Después de la implementación, continúe [probando el complemento ChatGPT](/help/guides/test-in-chatgpt.md) o [probando el conector Claude](/help/guides/test-in-claude.md).
+
 ## Inicio de la implementación
 
-Vaya a la página Detalles de la aplicación. Haga clic en el botón **[!UICONTROL Implementar]** en la esquina superior derecha:
+Abra la página Detalles de la aplicación y seleccione **[!UICONTROL Implementar]**.
 
-![Detalles de la aplicación — lista para implementar](/help/assets/guide-deploy/app-detail-deploy-ready.png)
+Seleccione el entorno de destino y luego seleccione **[!UICONTROL Implementar]**.
 
-Esto abre el cuadro de diálogo de implementación. Seleccione el entorno de destino en la lista desplegable:
+![Implementar — seleccione el entorno de destino](/help/assets/guide-onboarding-agent/deploy-stage.png)
 
-![Cuadro de diálogo de implementación — seleccionar entorno de destino](/help/assets/guide-deploy/deploy-pipeline-dropdown.png)
+La implementación se ejecuta en cuatro pasos:
 
-Haga clic en **[!UICONTROL Implementar]** para iniciar la canalización. Los cuatro pasos son:
+1. **Preparando** — recupera la configuración necesaria para implementar la aplicación.
+2. **Iniciar implementación**: inicia el proceso de implementación en segundo plano.
+3. **Generar aplicación**: instala dependencias y genera el código de repositorio más reciente.
+4. **Publicar** — publica la aplicación en [!DNL Adobe I/O Runtime].
 
-1. **Recopilar credenciales**: lee metadatos de la aplicación, genera un token [!DNL GitHub] y recupera credenciales de tiempo de ejecución de la API de la consola.
-2. **Canalización de compilación de Déclencheur**: envía todos los parámetros a la canalización de compilación.
-3. **Clonar y compilar**: la canalización clona el repositorio, genera `actions.json` a partir de los metadatos de la interfaz de usuario, ejecuta `npm install` y el Webpack para producir `dist/index.js`.
-4. **Implementar en tiempo de ejecución**: implementa el paquete en el espacio de nombres [!DNL Adobe I/O Runtime] de la aplicación.
-
-Una vez iniciada, la canalización se ejecuta automáticamente y muestra el progreso en tiempo real:
-
-![Implementar canalización en ejecución](/help/assets/guide-deploy/deploy-pipeline-deploying.png)
+![Implementar — canalización de implementación en ejecución](/help/assets/guide-onboarding-agent/deploy-running.png)
 
 >[!NOTE]
 >
@@ -46,20 +44,25 @@ Una vez iniciada, la canalización se ejecuta automáticamente y muestra el prog
 
 ## Después de una implementación correcta
 
-Cuando se completan todos los pasos, el cuadro de diálogo muestra una confirmación de **Implementación correcta** con la URL implementada y los detalles del artefacto:
+Cuando se completen todos los pasos, el cuadro de diálogo mostrará **Implementación correcta**.
 
-![Implementación correcta](/help/assets/guide-deploy/app-detail-deploy-finish.png)
+![Implementación: implementación correcta](/help/assets/guide-onboarding-agent/deploy-successful.png)
 
 Haga clic en **Cerrar** para cerrar el cuadro de diálogo. Desplácese hacia abajo hasta la sección **[!UICONTROL Probar la aplicación]** de la página Detalles de la aplicación:
 
-![Probar la aplicación — direcciones URL implementadas](/help/assets/guide-deploy/test-app-deployed.png)
+![Detalle de la aplicación: copie la URL del servidor MCP](/help/assets/guide-onboarding-agent/app-mcp-url.png)
 
-Cada entorno (**Staging** y **Production**) muestra la URL del servidor MCP en [!DNL Adobe I/O Runtime]. Dirección URL que proporciona a la plataforma LLM al registrar la aplicación. Haga clic en **Copiar URL** para copiarlo en el portapapeles.
+Cada entorno implementado muestra una URL de servidor MCP. Seleccione **[!UICONTROL Copiar URL]** y utilícelo para crear un complemento en la plataforma LLM de destino.
 
-La sección **Historial de implementación** a continuación mantiene un registro completo de cada implementación en entornos:
+La sección **Historial de implementaciones** muestra las últimas 10 implementaciones:
 
 ![Historial de implementación](/help/assets/guide-deploy/deployment-history.png)
 
 Cada fila muestra el destino **Entorno** (Fase o Producción), **Estado** (Correcto o Fallido) y **Implementado en la fecha**. Puede utilizar esta tabla para realizar un seguimiento de cuándo se produjeron las implementaciones y comprobar que la variable
 implementación más reciente correcta.
+
+## Siguiente paso
+
+- [Probar la aplicación implementada como un complemento de ChatGPT](/help/guides/test-in-chatgpt.md).
+- [Probar la aplicación implementada como un conector Claude](/help/guides/test-in-claude.md).
 

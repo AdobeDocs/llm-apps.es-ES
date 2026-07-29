@@ -1,15 +1,15 @@
 ---
-title: Crear una acción
-description: Obtenga información sobre cómo definir una acción en la interfaz de usuario de aplicaciones LLM, incluidos metadatos, parámetros de entrada y configuración de widgets.
-source-git-commit: ae2748319b5401555c3a616971f5697c17e74ac3
+title: Crear una acción desde cero
+description: Defina metadatos de acción, implemente su controlador, conecte un widget EDS, pruébelo e impleméntelo con aplicaciones LLM de Adobe.
+source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
 workflow-type: tm+mt
-source-wordcount: '900'
-ht-degree: 1%
+source-wordcount: '1137'
+ht-degree: 0%
 
 ---
 
 
-# Crear una acción
+# Crear una acción desde cero {#create-action-from-scratch}
 
 >[!IMPORTANT]
 >
@@ -17,140 +17,381 @@ ht-degree: 1%
 >
 >Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
-Esta guía le explica cómo definir una acción en la interfaz de usuario de [!DNL LLM Apps]. Para obtener información general sobre qué son las acciones y cómo funcionan, consulte [Conceptos principales](/help/overview/overview.md#actions).
+>[!NOTE]
+>
+>Esta guía supone una familiaridad básica con Adobe Edge Delivery Services (EDS). Si es nuevo en EDS, lea primero el [tutorial para desarrolladores de EDS](https://www.aem.live/developer/tutorial) y [Exploración de bloques](https://www.aem.live/docs/exploring-blocks) para conocer los aspectos básicos — bloques, la función `decorate` y la estructura del proyecto EDS — antes de conectar un widget.
 
-## Abrir la página Acciones
+Utilice esta guía para añadir una capacidad que la plataforma no ha creado. Definirá la acción en [!DNL LLM Apps], escribirá su controlador en el repositorio vinculado, agregará un widget si es necesario, lo probará e implementará.
 
-Vaya a **[!UICONTROL Acciones]** en la barra lateral izquierda o haga clic en **Ir a Acciones** en la página Detalles de la aplicación. Si aún no existen acciones, la página muestra un estado vacío.
+**Recorrido:** Planifique la acción → crear sus metadatos → escribir el controlador → conectar el widget → probar localmente → implementar y probar el complemento.
 
-![Página de acciones — aún no hay acciones](/help/assets/guide-create-action/actions-empty.png)
+Para tu primera aplicación, comienza con [Crea tu primera aplicación automáticamente](/help/guides/create-app.md).
 
-Haga clic en **+ Crear acción** para abrir el cuadro de diálogo de pantalla completa.
+## Antes de empezar
 
-## Tarjetas de acción
+Necesita:
 
-Cada acción aparece como una tarjeta que muestra lo siguiente:
+- Una aplicación LLM existente.
+- Un repositorio de controladores vinculado.
+- El repositorio clonado localmente con sus dependencias instaladas.
+- Un proyecto EDS si la acción muestra un widget.
+- Una API o fuente de datos clara para los resultados de producción.
 
-- La acción **name** y **description**
-- Una **imagen de vista previa del widget** — generada automáticamente a partir del widget, que muestra el aspecto de la salida de acción dentro de la plataforma LLM
-- **Insignias**: tipo de widget (**[!UICONTROL EDS]**), estado de implementación (**No implementado**, **Implementado en ensayo**, **Implementado en producción**), **Cambios no implementado** cuando la acción se ha modificado desde la última implementación y recuento de parámetros
-- Alternar **Visibilidad**: habilita o deshabilita la acción en el extremo activo sin volver a implementar.
-- Un vínculo **Revisar** en la esquina superior derecha para abrir el editor de acciones
+## Planificar la acción
 
-![Página de acciones — tarjetas de acción](/help/assets/guide-create-action/action-card.png)
+Una acción debe realizar una tarea de borrado de usuario. Antes de abrir la interfaz de usuario de, defina:
 
-Cuando se han modificado una o más acciones desde la última implementación, aparece el banner **Implementación necesaria** en la parte superior de la página Acciones. Vuelva a implementar la aplicación para aplicar los cambios.
+- **Intención**: lo que el usuario intenta lograr.
+- **Descripción**: cuándo la plataforma LLM debe seleccionar esta acción.
+- **Entradas**: la información mínima requerida del usuario.
+- **Resultado**: el texto y los datos estructurados devueltos por el controlador.
+- **Comportamiento**: si la acción lee datos, cambia datos o llama a sistemas externos.
+- **Widget**: indica si el resultado necesita una interfaz visual.
 
-## Pestaña Acción
+Por ejemplo, una acción **Buscar productos** podría usar:
 
-El cuadro de diálogo tiene dos fichas: **Acción** y **[!UICONTROL Metadatos de widget]**.
+```text
+Intent: Find products matching a category or search phrase
+Inputs:
+  category: optional string
+  query: optional string
+Result:
+  content: text summary
+  structuredContent: products and total count
+Behavior: read-only, idempotent, open-world
+Widget: product cards
+```
 
-### Información básica
+Mantenga las tareas relacionadas pero diferentes separadas. La búsqueda de productos y la compra de productos no deben ser una acción única, ya que tienen diferentes entradas, riesgos y requisitos de confirmación.
+
+## Creación de metadatos de acción
+
+Abra la aplicación, seleccione **[!UICONTROL Acciones]** y luego seleccione **[!UICONTROL Crear acción]**.
+
+El editor contiene las fichas **[!UICONTROL Acción]** y **[!UICONTROL Metadatos de widget]**.
+
+### Introducir información básica
 
 ![Crear acción — información básica](/help/assets/guide-create-action/action-basic-info.png)
 
-- **Nombre de la acción** (obligatorio): el identificador de la acción (por ejemplo, *Buscar productos*).
-- **Descripción** (obligatorio): una explicación clara de lo que hace la acción. La plataforma LLM utiliza esto para decidir cuándo invocar la acción. Por ejemplo: *Busque en el catálogo de productos por palabra clave. Devuelve productos coincidentes con nombre, categoría, imagen y precio.*
-- **Anotaciones**: sugerencias opcionales que describen el comportamiento de la acción:
+Escriba
 
-  | Anotación | Descripción |
-  |-----------|-------------|
-  | **Sugerencia destructiva** | La acción modifica o elimina datos |
-  | **Idempotente** | Llamar a la acción varias veces con los mismos argumentos produce el mismo resultado |
-  | **Sugerencia para abrir el mundo** | La acción interactúa con sistemas externos |
-  | **Sugerencia de solo lectura** | La acción solo lee datos, nunca escribe |
+- **[!UICONTROL Nombre de acción]**: un nombre corto de tarea, como *Buscar productos*.
+- **[!UICONTROL Descripción]** — explica cuándo usar la acción y qué devuelve.
 
-  Consulte [Referencia: Campos de metadatos](/help/reference/reference-docs.md) para obtener detalles.
+Una descripción útil es específica:
 
-### Metadatos de OpenAI
+```text
+Search the product catalog by category or keyword. Returns matching
+products with their names, prices, categories, and image URLs.
+```
 
-- **Invocando texto de estado**: el mensaje mostrado en la plataforma LLM mientras se ejecuta la acción (máximo 64 caracteres). Ejemplo: *Cargando productos...*
-- **Texto de estado invocado**: el mensaje que se muestra después de completarse la acción (máximo 64 caracteres). Ejemplo: *Productos cargados.*
+Evite descripciones vagas como *Obtiene información del producto*. La plataforma LLM utiliza la descripción para elegir entre acciones.
 
-### Parámetros de visibilidad y entrada
+### Seleccionar anotaciones
 
-**Visibilidad** controla dónde está disponible la acción:
+Las anotaciones describen el comportamiento de la acción:
 
-- **Exponer al modelo de IA**: el modelo de IA puede invocar la acción.
-- **Mostrar como widget en la superficie de la aplicación** — la acción procesa un widget visual.
+- **Sugerencia destructiva**: la acción puede eliminar o cambiar datos de forma permanente.
+- **Idempotente (los mismos argumentos = sin efecto adicional)** — repetir la misma solicitud tiene el mismo efecto.
+- **Open world hint**: la acción se comunica con sistemas externos.
+- **Sugerencia de solo lectura**: la acción no cambia los datos.
 
-**Parámetros de entrada** son los valores que la plataforma LLM envía a su controlador. El modelo los extrae automáticamente del mensaje del usuario. Para *Buscar productos* definimos:
+Seleccione solo las anotaciones que sean verdaderas. Por ejemplo, la búsqueda de productos suele ser de solo lectura, idempotente y de mundo abierto.
 
-- **category** (cadena, opcional): filtro de categoría para reducir los resultados (por ejemplo, un tipo de producto o departamento).
-- **consulta** (cadena, opcional): término de búsqueda de texto libre.
+### Añadir metadatos de OpenAI
 
-Cada parámetro tiene **Name**, **Type** (String, Number, Integer, Boolean), **Description** y una casilla de verificación **Obligatorio**. Haga clic en **+ Agregar** para agregar más parámetros.
+Introduzca los mensajes cortos que se muestran mientras se ejecuta la acción y después de que se complete:
 
-Para obtener más información, vea [Referencia: parámetros de acción](/help/reference/reference-docs.md).
+```text
+Invoking: Searching products...
+Invoked: Products found
+```
 
-### Análisis
+Para acciones con widgets, agregue **[!UICONTROL Descripción del widget]**. Esto es diferente a la descripción de la acción:
 
-![Crear acción — intención de usuario de Analytics](/help/assets/guide-create-action/action-analytics-user-intent.png)
+- **Descripción de la acción** ayuda al modelo a decidir cuándo invocar la acción.
+- **La descripción del widget** se asigna a `_meta["openai/widgetDescription"]` y resume lo que muestra el componente procesado, lo que reduce la narración repetida.
 
-- **Intento del usuario** — cuando está habilitada, se le pide a [!DNL ChatGPT] que resuma la conversación que llevó a llamar a esta acción. Ese resumen se recopila y aparece en Analytics, lo que le ofrece insight sobre lo que los usuarios intentaban lograr cuando se activó la acción.
+[!DNL LLM Apps] aplica esto como metadatos de componente. No lo devuelva desde el controlador.
 
-## Pestaña Metadatos del widget
+### Configuración de visibilidad
 
-Esta pestaña configura cómo se representa la respuesta visual de la acción en la plataforma LLM. Para obtener una explicación completa del funcionamiento de los widgets, consulte [Guía: Configurar el widget (EDS)](/help/guides/widgets.md).
+- **[!UICONTROL Exponer al modelo de IA]** permite que el modelo seleccione la acción.
+- **[!UICONTROL Mostrar como widget en la superficie de la aplicación]** muestra el widget configurado.
+
+Deshabilite la visibilidad del widget cuando la acción devuelva solo texto.
+
+### Añadir parámetros de entrada
+
+Agregue un parámetro para cada valor que acepte el controlador. Todos los parámetros necesitan:
+
+- **Nombre**: la clave recibida por el controlador.
+- **Tipo** — Cadena, Número, Entero o Booleano.
+- **Descripción**: cómo el modelo debe extraer el valor.
+- **Requerido**: si la acción se puede ejecutar sin ella.
+
+Para **Buscar productos**:
+
+```text
+category
+  Type: String
+  Required: No
+  Description: Product category used to narrow the catalog.
+
+query
+  Type: String
+  Required: No
+  Description: Product name or search phrase.
+```
+
+Utilice nombres de parámetros estables. Para cambiar un nombre también es necesario cambiar el controlador y sus pruebas.
+
+### Configurar Analytics
+
+Habilite **[!UICONTROL Recopilar la intención del usuario]** cuando quiera que Analytics incluya un resumen de la conversación que provocó la acción.
+
+![Crear acción — análisis por intención de usuario](/help/assets/guide-create-action/action-analytics-user-intent.png)
+
+Para ver las definiciones de campo completas, consulte [Campos de acción y widget](/help/reference/reference-docs.md).
+
+## Configuración del widget
+
+Omita esta sección para una acción de solo texto.
+
+Abrir **[!UICONTROL metadatos de widget]**.
 
 ![Crear acción — metadatos de widget](/help/assets/guide-create-action/widget-metadata.png)
 
-### Información del widget
+Configuración de:
 
-- **Tipo**: la tecnología de widget (actualmente **[!UICONTROL EDS]**).
-- **Dominio del widget (origen de la zona protegida)**: el origen en el que está alojado el widget. Necesario para el envío de aplicaciones a OpenAI; debe ser único para cada aplicación.
-- **Prefiere borde** — procesa el widget dentro de una tarjeta con borde.
+- **Tipo** — seleccione EDS.
+- **Dominio de widget**: el origen EDS que aloja el widget.
+- **Prefiere borde** — solicita un contenedor con borde en el host.
+- **URL de script**: el punto de entrada del widget EDS.
+- **URL del widget**: la página EDS publicada para esta acción.
 
-### URL de plantilla
+Las direcciones URL habituales son:
 
-- **[!UICONTROL URL del script]**: el punto de entrada que arranca el widget, compartido en todas las acciones:
-  `https://main--<repo>--<owner>.aem.live/scripts/aem-embed.js`
-- **URL de incrustación de widget** — la página EDS para esta acción específica:
-  `https://main--<repo>--<owner>.aem.live/eds-widgets/<action-name>`
+```text
+Script URL:
+https://main--<repo>--<owner>.aem.live/scripts/aem-embed.js
 
-### Permisos
+Widget URL:
+https://main--<repo>--<owner>.aem.live/<widget-page>
+```
 
-API de hardware y explorador a las que puede acceder el widget:
-
-| Permiso | Descripción |
-|-----------|-------------|
-| **Cámara** | Acceder a la cámara del dispositivo |
-| **Micrófono** | Acceder al micrófono del dispositivo |
-| **Geolocalización** | Acceso a la ubicación del usuario |
-| **Portapapeles** | Leer o escribir en el portapapeles |
-
-### Configuración de CSP
+Conceda solo los permisos de explorador y los dominios CSP necesarios.
 
 ![Crear acción — permisos y CSP](/help/assets/guide-create-action/widget-permissions-csp.png)
 
-Controla los dominios externos con los que puede contactar el iframe del widget. Todos los dominios externos deben estar explícitamente incluidos en la lista de permitidos.
+Si el proyecto EDS o la página del widget aún no existen, complete [Traiga su propio proyecto EDS](/help/guides/bring-your-own-eds.md) y vuelva a la acción.
 
-| Directiva | Descripción |
-|-----------|-------------|
-| **Dominios de recursos** | Dominios para recursos estáticos: imágenes, fuentes, scripts y estilos |
-| **Conectar dominios** | Dominios con los que el widget puede contactar a través de `fetch`, `XHR` o `WebSocket` |
-| **Dominios de trama** | Los orígenes se permiten para los iframes anidados; agregar entradas déclencheur una revisión de aplicación más estricta desde OpenAI |
-| **Dominios de redireccionamiento** | Destinos de confianza para vínculos de redireccionamiento de `openExternal` ([!DNL ChatGPT] específicos) |
-| **Dominios URI base** | La directiva CSP `base-uri` (solo SDK de aplicaciones MCP, no compatible con [!DNL ChatGPT]) |
+## Guardar la acción
 
-Haga clic en **Crear nueva acción** para guardar.
+Seleccione **[!UICONTROL Crear nueva acción]**. La acción aparece en la página Acciones con el distintivo **No implementado**.
 
-## Después de crear una acción
+En este punto, los metadatos existen, pero la acción todavía necesita un controlador.
 
-La acción aparecerá como una tarjeta en la página Acciones:
+## Implementar el controlador
 
-![Página de acciones — acción creada](/help/assets/guide-create-action/actions-with-action.png)
+Clone el repositorio de controladores vinculado e instale sus dependencias:
 
-Cada tarjeta muestra el nombre de la acción, la descripción, el distintivo de tipo (**[!UICONTROL EDS]**), el estado de implementación (**No implementado**) y el recuento de parámetros. Puede hacer clic en **...** para editarla o eliminarla, o bien hacer clic en **Revisar** para inspeccionar la configuración.
+```bash
+npm install
+```
 
-![Detalle de la aplicación — no implementado](/help/assets/guide-create-action/app-detail-not-deployed.png)
+Crear:
 
-Los metadatos de la acción se han guardado, pero aún no se ha implementado ningún código. Para que la acción funcione, debe:
+```text
+actions/
+└── search-products/
+    └── index.js
+```
 
-1. **Configurar el widget EDS**; consulte [Guía: Configurar el widget (EDS)](/help/guides/widgets.md).
-2. **Escriba el controlador**; consulte [Guía: escriba el controlador de acciones](/help/guides/write-action-handler.md).
-3. **[!UICONTROL Implementar]** — vea [Guía: Implementar su aplicación](/help/guides/deploy-your-app.md).
+El nombre de la carpeta debe coincidir con el identificador de código de la acción que se muestra en el editor de acciones.
 
-## Pasos siguientes
+Para obtener el contrato de resultados completo y la relación controlador-widget, consulte [Personalizar un controlador generado](/help/guides/customize-handler.md).
 
+### Contrato de controlador
+
+Exporte una función asíncrona:
+
+```javascript
+module.exports = async (args) => {
+  return {
+    content: [
+      { type: 'text', text: 'Response for the LLM platform.' }
+    ],
+    structuredContent: {
+      // Data for the widget.
+    }
+  };
+};
+```
+
+El controlador recibe los parámetros definidos en la interfaz de usuario.
+
+### Devolver `content`
+
+`content` es la reserva de texto leída por la plataforma LLM:
+
+```javascript
+content: [
+  { type: 'text', text: 'Found 3 matching products.' }
+]
+```
+
+Siempre devuelve `content` útil, incluso cuando la acción tiene un widget.
+
+### Devolver `structuredContent`
+
+`structuredContent` es un objeto sin formato consumido por el widget:
+
+```javascript
+structuredContent: {
+  products: [
+    { id: 'P-100', name: 'Product A', price: '$20' }
+  ],
+  total: 1
+}
+```
+
+La forma debe coincidir con lo que lee el bloque EDS de `bridge.toolResult`.
+
+### Conexión de una API
+
+Mantenga el acceso a la API protegida en el controlador del lado del servidor. Cargue la configuración desde el entorno de tiempo de ejecución y utilice un origen HTTPS fijo.
+
+```javascript
+const API_ORIGIN = process.env.PRODUCT_API_ORIGIN;
+const API_TOKEN = process.env.PRODUCT_API_TOKEN;
+
+module.exports = async ({ query = '' } = {}) => {
+  const normalizedQuery = String(query).trim();
+  if (!normalizedQuery || normalizedQuery.length > 200) {
+    return {
+      content: [{ type: 'text', text: 'Enter a valid product search.' }],
+      structuredContent: { products: [], total: 0 }
+    };
+  }
+
+  if (!API_ORIGIN || !API_TOKEN) {
+    throw new Error('Product API configuration is unavailable.');
+  }
+
+  const origin = new URL(API_ORIGIN);
+  if (origin.protocol !== 'https:') {
+    throw new Error('Product API configuration must use HTTPS.');
+  }
+
+  const url = new URL('/v1/products', origin);
+  url.searchParams.set('query', normalizedQuery);
+
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${API_TOKEN}` },
+    signal: AbortSignal.timeout(8000)
+  });
+
+  if (!response.ok) {
+    throw new Error('Product service request failed.');
+  }
+
+  const payload = await response.json();
+  if (!payload || !Array.isArray(payload.products)
+      || !payload.products.every((product) =>
+        product
+        && typeof product.id === 'string'
+        && typeof product.name === 'string'
+        && typeof product.price === 'string')) {
+    throw new Error('Product service returned an unexpected response.');
+  }
+
+  const products = payload.products.map((product) => ({
+    id: product.id,
+    name: product.name,
+    price: product.price
+  }));
+
+  return {
+    content: [
+      { type: 'text', text: `Found ${products.length} matching products.` }
+    ],
+    structuredContent: {
+      products,
+      total: products.length
+    }
+  };
+};
+```
+
+No coloque credenciales de API en el código fuente, metadatos de acción, JavaScript de widget, registros o errores de cara al usuario.
+
+Para el código de producción, valide la respuesta ascendente completa antes de asignar los campos aprobados a `structuredContent`.
+
+## Agregar pruebas de controlador
+
+Cree la prueba coincidente:
+
+```text
+test/
+└── actions/
+    └── search-products.test.js
+```
+
+Probar al menos:
+
+- Entrada válida.
+- Falta entrada o no es válida.
+- Resultados vacíos.
+- Tiempo de espera o error de API.
+- Datos de API mal formados.
+- La forma `structuredContent` que esperaba el widget.
+
+Ejecutar:
+
+```bash
+npm test
+```
+
+Para obtener información sobre el diseño del proyecto y las pruebas de MCP local, vea [Desarrollo y prueba de controladores locales](/help/reference/development.md).
+
+## Prueba de la acción localmente
+
+Ejecutar:
+
+```bash
+npm run dev:local
+```
+
+Sin un `actions.json` local, el servidor detecta el controlador con metadatos mínimos y sin validación de esquema de entrada.
+
+Use el Inspector MCP o `curl` para:
+
+1. Enumerar las acciones registradas.
+2. Llame a la nueva acción con argumentos representativos.
+3. Verificar `content` y `structuredContent`.
+4. Prueba de solicitudes no válidas y vacías.
+
+## Conexión y prueba del widget
+
+Si la acción tiene un widget:
+
+1. Haga que el widget lea `structuredContent` del controlador.
+2. Procese valores externos con API DOM seguras como `textContent`.
+3. Añada los estados de carga, vacío y error.
+4. Previsualice la página EDS localmente.
+5. Compruebe las URL de CSP, CORS y widget.
+
+Consulte [Traer su propio proyecto EDS](/help/guides/bring-your-own-eds.md).
+
+## Implementación y prueba
+
+1. Confirme e inserte los cambios del controlador y el widget.
+2. [Implementar la aplicación](/help/guides/deploy-your-app.md) en Fase.
+3. [Probar el complemento ChatGPT](/help/guides/test-in-chatgpt.md).
+4. Verify solicita que debe y no debe invocar la acción.
+5. Una vez que Fase se haya realizado correctamente, implemente en Producción.
+
+Si los metadatos existen sin un controlador coincidente, la implementación registra la acción con un código auxiliar predeterminado. Agregue el controlador antes de poner la acción a disposición de los usuarios.
 - [Guía: Configurar el widget (EDS)](/help/guides/widgets.md)
