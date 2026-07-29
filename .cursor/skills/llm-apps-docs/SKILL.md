@@ -45,7 +45,7 @@ Si la producción entra en conflicto con el origen o los planes, documente la pr
 - Distingue el andamiaje generado de la integración lista para la producción.
 - Evite nombres de trabajadores internos, campos de base de datos, tickets de implementación y detalles de canalización inestables.
 - No duplique las tablas de campo entre las guías; vincule a la referencia.
-- Conservar el frontmatter y las directivas de Experience League: `[!DNL]`, ``, `[!IMPORTANT]`, `[!NOTE]` y `[!TIP]`.
+- Conservar el frontmatter y las directivas de Experience League: `[!DNL]`, &grave;&grave;, `[!IMPORTANT]`, `[!NOTE]` y `[!TIP]`.
 - Use vínculos internos relativos a la raíz: `/help/...`.
 - Utilice mayúsculas y minúsculas en los títulos y encabezados a menos que una etiqueta de producto requiera lo contrario.
 - Utilice un texto alternativo de imagen descriptivo que explique la pantalla y el estado.
