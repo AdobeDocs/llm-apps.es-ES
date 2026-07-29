@@ -103,7 +103,7 @@ Los nombres de archivo de Source no necesitan coincidir con los nombres de archi
 ### `chatgpt-plugin-connect.png`
 
 - Estado: Confirmación después de la creación del complemento.
-- Incluir: **Agregar <plugin> a ChatGPT **y** Connect **.
+- Incluir: **Agregar <plugin> a ChatGPT &#x200B;** y**&#x200B; Connect &#x200B;**.
 - Máscara: URL del explorador e identificadores de conector.
 - Texto alternativo: `ChatGPT — connect the new plugin`
 
