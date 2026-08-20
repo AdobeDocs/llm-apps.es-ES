@@ -1,9 +1,9 @@
 ---
 title: Información general sobre las aplicaciones LLM de Adobe
 description: Aprenda qué es Adobe LLM Apps, cómo funciona y lo que necesita para empezar.
-source-git-commit: e066f66b37914e2f747176e865e26dcc074bff20
+source-git-commit: 2f3480b3667a6ab7c4ed65b999eed4638c383edb
 workflow-type: tm+mt
-source-wordcount: '973'
+source-wordcount: '969'
 ht-degree: 1%
 
 ---
@@ -60,9 +60,7 @@ El extremo expuesto después de la implementación. Una plataforma LLM admitida 
 
 ## Funcionamiento
 
-En un nivel superior, ocurren tres cosas: usted le dice a [!DNL LLM Apps] cuál es su marca
-ofrece, convierte eso en algo en lo que un asistente de IA puede actuar, y
-el cliente obtiene una respuesta real, justo dentro del chat.
+En un nivel superior, ocurren tres cosas: le dices a [!DNL LLM Apps] lo que ofrece tu marca, se convierte en algo en lo que un asistente de IA puede actuar, y tu cliente recibe una respuesta real, justo dentro del chat.
 
 ```
 ┌────────────────────┐          ┌────────────────────┐          ┌────────────────────┐
@@ -74,8 +72,7 @@ el cliente obtiene una respuesta real, justo dentro del chat.
 └────────────────────┘          └────────────────────┘          └────────────────────┘
 ```
 
-¿Quieres los detalles técnicos, lo que construyes y cómo encajan las piezas?
-Ver [Cómo se conecta una aplicación](/help/overview/app-architecture.md).
+¿Quieres los detalles técnicos, lo que construyes y cómo encajan las piezas? Ver [Cómo se conecta una aplicación](/help/guides/app-architecture.md).
 
 ## Requisitos {#requirements}
 
