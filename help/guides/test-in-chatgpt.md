@@ -1,13 +1,11 @@
 ---
 title: Pruebe su aplicación LLM como complemento de ChatGPT
 description: Cree un complemento ChatGPT a partir de la URL de su servidor MCP de aplicaciones LLM de Adobe y pruébelo en una conversación.
-source-git-commit: b7199fbb387d91a5c77deac47a2bc883381931c1
+source-git-commit: fd41dbcabc4db0cae766de19cb042d7c85d8b7aa
 workflow-type: tm+mt
-source-wordcount: '335'
+source-wordcount: '378'
 ht-degree: 1%
-
 ---
-
 
 # Probar su aplicación LLM como un complemento de [!DNL ChatGPT] {#test-in-chatgpt}
 
@@ -54,6 +52,11 @@ En [!DNL LLM Apps]:
    - **[!UICONTROL Descripción]**: opcional.
    - **[!UICONTROL Conexión]** — seleccione **[!UICONTROL URL del servidor]** y pegue la URL del servidor MCP.
    - **[!UICONTROL Autenticación]** — seleccione **[!UICONTROL Sin autenticación]**.
+
+   >[!NOTE]
+   >
+   >**[!UICONTROL Sin autenticación]** se aplica mientras que cada acción en la aplicación es pública. Si ha activado la autenticación de usuario final, seleccione **[!UICONTROL OAuth]** cuando cada acción se establezca en **[!UICONTROL Requerido]** y **[!UICONTROL Mixto]** para cualquier otra combinación; consulte [Autenticar usuarios finales con su propio proveedor de identidad](/help/guides/authentication.md).
+
 4. Seleccione **[!UICONTROL Entiendo y deseo continuar]**.
 5. Seleccione **[!UICONTROL Crear]**.
 
