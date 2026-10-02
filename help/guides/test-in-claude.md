@@ -1,13 +1,11 @@
 ---
 title: Pruebe su aplicación LLM como conector Claude
 description: Cree un conector Claude desde la URL de su servidor MCP de aplicaciones LLM de Adobe y pruébelo en una conversación.
-source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
+source-git-commit: fd41dbcabc4db0cae766de19cb042d7c85d8b7aa
 workflow-type: tm+mt
-source-wordcount: '399'
+source-wordcount: '448'
 ht-degree: 1%
-
 ---
-
 
 # Probar su aplicación LLM como conector [!DNL Claude] {#test-in-claude}
 
@@ -20,6 +18,8 @@ ht-degree: 1%
 Después de la implementación, la aplicación LLM expone la dirección URL de un servidor MCP. Agregue esta dirección URL a [!DNL Claude] como conector personalizado y, a continuación, pruebe las acciones y widgets generados.
 
 Este es el paso de verificación final después de crear, personalizar o ampliar una aplicación.
+
+En esta guía se da por hecho que las acciones de la aplicación son públicas. Si la aplicación tiene habilitada la autenticación de usuario final, [!DNL Claude] le pedirá que inicie sesión con el proveedor de identidad de la aplicación para poder usar el conector y no se mostrará ninguna herramienta hasta que lo haga. Ver [Autenticar usuarios finales con su propio proveedor de identidad](/help/guides/authentication.md).
 
 ## Requisitos del plan
 

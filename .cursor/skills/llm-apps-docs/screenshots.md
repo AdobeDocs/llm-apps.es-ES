@@ -1,9 +1,8 @@
 ---
-source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
+source-git-commit: 03c918b1643d9c4e8ebee40fd67694acb6751a14
 workflow-type: tm+mt
-source-wordcount: '696'
+source-wordcount: '703'
 ht-degree: 0%
-
 ---
 # Procedimiento de captura de pantalla Producción
 
@@ -102,7 +101,7 @@ Cuando el usuario solicita actualizar la documentación desde una carpeta de cap
    - información sensible;
    - Comportamiento de producción que entra en conflicto con los documentos.
 6. No edite las capturas de origen.
-7. Para cada imagen aceptada, cree una copia saneada con el nombre de archivo del manifiesto estable bajo `help/assets/guide-onboarding-agent/`.
+7. Para cada imagen aceptada, cree una copia saneada con el nombre de archivo del manifiesto estable en el directorio de salida que declara su sección de manifiesto.
 8. Recortar solo cuando la IU circundante no agregue contexto útil.
 9. Enmascarar valores confidenciales. Si el enmascaramiento seguro no es posible, pida una recaptura.
 10. Actualice el artículo y el texto alternativo para que coincidan con el flujo de trabajo capturado.

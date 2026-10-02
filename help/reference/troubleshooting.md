@@ -1,13 +1,11 @@
 ---
 title: Solucionar problemas de aplicaciones LLM de Adobe
 description: Resuelva problemas comunes de repositorio, incorporación, controlador, widget, implementación y complemento de ChatGPT.
-source-git-commit: eec74b87457bc852d7a8dd0e46c2a4385a93ae0a
+source-git-commit: fd41dbcabc4db0cae766de19cb042d7c85d8b7aa
 workflow-type: tm+mt
-source-wordcount: '632'
+source-wordcount: '1144'
 ht-degree: 0%
-
 ---
-
 
 # Resolución de problemas {#troubleshooting}
 
@@ -58,6 +56,29 @@ No registre valores `bridge.toolResult` completos cuando puedan contener datos p
 | La implementación falla durante **Generar aplicación** | Ejecutar `npm install`, `npm test` y `npm run build` localmente. Corrija los errores de dependencia, sintaxis o prueba e inserte los cambios |
 | La implementación se realiza correctamente, pero faltan cambios | Confirme que la confirmación esperada se insertó y se volvió a implementar en el mismo entorno |
 | La acción permanece **No implementada** | Implementar de nuevo después de revisar la acción o cambiar sus metadatos |
+
+## Autenticación {#authentication}
+
+Se aplica cuando **[!UICONTROL Habilitar autenticación]** está activado. Ver [Autenticar usuarios finales con su propio proveedor de identidad](/help/guides/authentication.md).
+
+| Síntoma | Qué debe probar |
+|---------|-------------|
+| Las acciones siguen siendo públicas después de guardar la configuración | Vuelva a implementar la aplicación en ese entorno. Los cambios de autenticación se aplicarán en la siguiente implementación |
+| La configuración parece incorrecta después de cambiar de entorno | Confirme que el selector **[!UICONTROL Workspace]** muestra el entorno que pretendía. **[!UICONTROL Fase]** y **[!UICONTROL Producción]** se configuran de forma independiente |
+| El inicio de sesión no se inicia | Confirme que la aplicación se ha implementado desde que habilitó la autenticación y que la acción a la que llama está establecida en **[!UICONTROL Obligatorio]**. Una acción **[!UICONTROL Optional]** solo pregunta si su controlador solicita el inicio de sesión |
+| La plataforma envía al usuario a una página de inicio de sesión incorrecta | Compruebe que **[!UICONTROL Issuer]** coincide exactamente con la dirección URL del emisor del proveedor de identidad y que se puede acceder a ella a través de HTTPS público |
+| El inicio de sesión se ha realizado correctamente, pero todas las llamadas se rechazan | Confirme que el proveedor de identidad emite tokens cuya audiencia es la URL del servidor MCP de la aplicación para ese entorno y que el token es un JWT firmado con un algoritmo asimétrico. Ver [requisitos de token](/help/reference/authentication-reference.md#token-requirements) |
+| El proveedor de identidad nunca recibe tráfico | Los extremos de descubrimiento, autorización y token de su proveedor deben estar accesibles a través de HTTPS público. Compruebe si hay un cortafuegos, una WAF o una lista de permitidos IP delante; su aplicación puede estar accesible mientras que su proveedor no lo esté |
+| El proveedor de identidad se niega a emitir un token para la audiencia solicitada | Algunos proveedores solo emiten tokens para un recurso registrado con ellos. Confirme que la URL del servidor MCP de la aplicación está registrada como identificador de recurso en su proveedor de identidad. |
+| No se solicita un ámbito agregado recientemente al iniciar sesión | Las plataformas LLM almacenan en caché los metadatos publicados de la aplicación durante unos minutos. Espere y vuelva a intentar iniciar sesión |
+| Se le pide al usuario que vuelva a iniciar sesión para un ámbito | La acción requiere un ámbito que el token no lleva. Agregue el ámbito a la concesión del cliente en su proveedor de identidad o elimínelo de la acción |
+| Se le pide al usuario que inicie sesión una y otra vez, en un bucle | Una acción es difícil en cada llamada. Un controlador que devuelve `extra.challengeAuth()` sin comprobar primero si el llamador ya está autenticado nunca se puede satisfacer, porque iniciar sesión de nuevo produce el mismo desafío. Desafío solo cuando falta la identidad que necesita la acción |
+| El inicio de sesión se rechaza antes de que el usuario llegue a su proveedor de identidad | El URI de redireccionamiento enviado por la plataforma LLM no está registrado en el servidor de autorización. Algunas plataformas emiten una diferente para cada conector, por lo que debe registrar el valor que se muestra en la pantalla de configuración del conector |
+| Guardar está bloqueado con un mensaje de ámbito no admitido | Agregue el ámbito a **[!UICONTROL Ámbitos admitidos]** o elimínelo de la acción que lo requiera |
+| Una acción establecida en **[!UICONTROL None]** sigue solicitando el inicio de sesión | Se esperaba en [!DNL Claude], que se autentica por conector en lugar de por acción. |
+| La aplicación solicita el inicio de sesión aunque todas las acciones sean **[!UICONTROL Ninguna]** | Desactive **[!UICONTROL Habilitar autenticación]** e implemente. Mientras está activada, la aplicación anuncia un servidor de autorización incluso cuando no se activa ninguna acción |
+
+No pegue tokens de acceso, conjuntos de reclamaciones o secretos de cliente del proveedor de identidad en una solicitud de asistencia.
 
 ## Complementos de ChatGPT
 
