@@ -14,7 +14,7 @@ Los nombres de archivo de Source no necesitan coincidir con los nombres de archi
 
 Cada guía siguiente declara su propio directorio de salida. Utilice el de la sección a la que pertenece la captura.
 
-# Guía de incorporación
+&#x200B;# Guía de incorporación
 
 Directorio de salida: `help/assets/guide-onboarding-agent/`
 
@@ -106,7 +106,7 @@ Directorio de salida: `help/assets/guide-onboarding-agent/`
 ### `chatgpt-plugin-connect.png`
 
 - Estado: Confirmación después de la creación del complemento.
-- Incluir: **Agregar <plugin> a ChatGPT **y** Connect **.
+- Incluir: **Agregar <plugin> a ChatGPT &#x200B;** y**&#x200B; Connect &#x200B;**.
 - Máscara: URL del explorador e identificadores de conector.
 - Texto alternativo: `ChatGPT — connect the new plugin`
 
@@ -127,7 +127,7 @@ Añada una captura solo cuando la prosa no pueda explicar la decisión clarament
 
 No agregue capturas de pantalla para listas de campos estáticos que ya estén limpias en prose.
 
-# Guía de autenticación
+&#x200B;# Guía de autenticación
 
 Directorio de salida: `help/assets/guide-authentication/`
 
@@ -201,8 +201,8 @@ opciones. Las tres filas sin resaltar se volvieron a pintar con el relleno del p
 se ha vuelto a procesar, lo cual lo elimina. Verificar por muestreo, no por ojo: el sangrado es lo suficientemente débil como para
 falta y es la URL del servidor MCP.
 
-Tenga en cuenta que el control activo ofrece **cuatro** valores: **[!UICONTROL OAuth]**, **[!UICONTROL acceso
-token/clave de API]**, **[!UICONTROL Sin autenticación]** y **[!UICONTROL Mixto]**. Asignación de la guía
+Tenga en cuenta que el control activo ofrece **cuatro** valores: **[!UICONTROL OAuth]**, **acceso
+token/clave de API&rbrack;**, &#x200B;** [!UICONTROL Sin autenticación] **&#x200B; y &#x200B;** [!UICONTROL Mixto]**. Asignación de la guía
 Esta tabla abarca solo los tres a los que se pueden asignar los modos de autenticación de una aplicación, lo que es correcto, pero no lo son
 describa la lista desplegable como si tuviera tres opciones.
 
