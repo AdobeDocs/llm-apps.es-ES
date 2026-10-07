@@ -1,13 +1,11 @@
 ---
 title: Personalizar un controlador de acciones generado
 description: Comprenda el contrato del controlador de aplicaciones LLM de Adobe, reemplace los datos de muestra generados y mantenga la salida del controlador alineada con su widget.
-source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
+source-git-commit: 2d8f44f4f258bf217992131de9d9450a4023560d
 workflow-type: tm+mt
-source-wordcount: '541'
+source-wordcount: '537'
 ht-degree: 0%
-
 ---
-
 
 # Personalizar un controlador generado {#customize-generated-handler}
 
@@ -15,7 +13,7 @@ ht-degree: 0%
 >
 >[!DNL Adobe LLM Apps] se encuentra actualmente en Beta.
 >
->Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
+>Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirte a Beta, envía un correo electrónico a `llm-apps-beta@adobe.com`.
 
 La plataforma crea un controlador de trabajo para cada acción generada. El controlador devuelve inicialmente datos de ejemplo para que pueda probar la experiencia completa.
 
