@@ -1,7 +1,7 @@
 ---
-source-git-commit: 03c918b1643d9c4e8ebee40fd67694acb6751a14
+source-git-commit: 41bd4b6239171c7a3af7dc6349eaa3cbb880449c
 workflow-type: tm+mt
-source-wordcount: '1080'
+source-wordcount: '1279'
 ht-degree: 0%
 ---
 # Manifiesto de captura de pantalla
@@ -214,3 +214,51 @@ Añádalo sólo si la prosa resulta insuficiente:
 - El inicio de sesión en mitad de la conversación requiere una acción **[!UICONTROL Opcional]**. IU de propiedad de Platform que cambia con frecuencia y ya se describe en prosa.
 
 No capture la página de inicio de sesión propia del proveedor de identidad. Identifica al proveedor, al que no da nombre esta documentación.
+
+&#x200B;# Guía de variables de aplicación
+
+Directorio de salida: `help/assets/guide-app-variables/`
+
+[app-variables.md](../../../help/guides/app-variables.md) hace referencia a él.
+
+Utilice la variable de sujeción `GREETING_PREFIX` con el valor `Good day`, en el área de trabajo **[!UICONTROL Fase]**. Los valores de las variables son visibles en la tabla, por lo que nunca capture una configuración real.
+
+## Capturas requeridas
+
+### `variables-empty.png`
+
+- Estado: **[!UICONTROL Configuración]** > **[!UICONTROL Variables y secretos]** sin variables en **[!UICONTROL Fase]**.
+- Incluye: la navegación de configuración, el selector **[!UICONTROL Workspace]** y **[!UICONTROL Add]**.
+- Texto alternativo: `Variables & Secrets — empty Stage workspace with the Add button`
+
+Registrado el 05-10-2026. Recortado para soltar el lienzo vacío; nada que ocultar.
+
+### `add-variable-dialog.png`
+
+- Estado: **[!UICONTROL Se ha completado el cuadro de diálogo Agregar variable o secreto]** antes de guardar.
+- Incluir: los *secretos aún no se admiten* aviso, **[!UICONTROL Nombre]** `GREETING_PREFIX`, **[!UICONTROL Tipo]** **[!UICONTROL Variable]** y **[!UICONTROL Valor]** `Good day`.
+- Texto alternativo: `Add Variable or Secret — GREETING_PREFIX set to Good day`
+
+Registrado el 05-10-2026. Recortado debajo del cuadro de diálogo; nada que ocultar.
+
+### `variable-added.png`
+
+- Estado: la tabla de variables después de guardar, con una fila `GREETING_PREFIX`.
+- Incluya: **[!UICONTROL Nombre]**, **[!UICONTROL Tipo]**, **[!UICONTROL Valor]**, **[!UICONTROL Última actualización]**, y los controles de copiar, editar y eliminar.
+- Texto alternativo: `Variables & Secrets — GREETING_PREFIX saved in the Stage workspace`
+
+Registrado el 05-10-2026. Recortado para soltar el lienzo vacío; nada que ocultar.
+
+### `update-variable-dialog.png`
+
+- Estado: **[!UICONTROL Actualizar el cuadro de diálogo GREETING_PREFIX]** con **[!UICONTROL Valor actual]** `Good day` y **[!UICONTROL Nuevo valor]** `Howdy`.
+- Texto alternativo: `Update GREETING_PREFIX — change the value from Good day to Howdy`
+
+Registrado el 05-10-2026. Se recortaron el título de la página recortada y la superposición vacía debajo del cuadro de diálogo; se pintó el símbolo de intercalación de texto después de `Howdy`. Nada que enmascarar.
+
+### `delete-variable-dialog.png`
+
+- Estado: **[!UICONTROL Eliminar GREETING_PREFIX?]** diálogo de confirmación.
+- Texto alternativo: `Delete GREETING_PREFIX — confirm the permanent deletion`
+
+Registrado el 05-10-2026. Se ha recortado la superposición vacía debajo del cuadro de diálogo; no hay nada que ocultar.

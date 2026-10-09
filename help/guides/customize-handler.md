@@ -1,9 +1,9 @@
 ---
 title: Personalizar un controlador de acciones generado
 description: Comprenda el contrato del controlador de aplicaciones LLM de Adobe, reemplace los datos de muestra generados y mantenga la salida del controlador alineada con su widget.
-source-git-commit: 2d8f44f4f258bf217992131de9d9450a4023560d
+source-git-commit: d9fb493c0b1708e4566e93a4f883e99bb4166e18
 workflow-type: tm+mt
-source-wordcount: '537'
+source-wordcount: '581'
 ht-degree: 0%
 ---
 
@@ -215,6 +215,8 @@ module.exports = async ({ query = '' } = {}) => {
 ```
 
 Mantenga el acceso a la red protegida en el controlador. Nunca coloque credenciales de API en un widget de JavaScript o control de código fuente.
+
+Para obtener la configuración no confidencial que necesita su controlador, como una dirección URL de servicio, vea [Configurar variables y secretos de la aplicación](/help/guides/app-variables.md). Las variables se configuran por entorno y tienen efecto en la siguiente implementación. La compatibilidad secreta aún no está disponible; no utilice variables para almacenar las credenciales de la API.
 
 ## Gestión de estados esperados
 

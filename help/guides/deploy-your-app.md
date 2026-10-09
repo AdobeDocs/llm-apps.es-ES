@@ -1,13 +1,11 @@
 ---
 title: Implemente la aplicación
 description: Aprenda a implementar la aplicación LLM de Adobe en el ensayo y la producción mediante la interfaz de usuario de las aplicaciones LLM.
-source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
+source-git-commit: 4e447562c5d38f68c209ded7370e9d384a7c9701
 workflow-type: tm+mt
-source-wordcount: '322'
+source-wordcount: '352'
 ht-degree: 0%
-
 ---
-
 
 # Implemente su aplicación {#deploy-your-app}
 
@@ -26,6 +24,8 @@ Este es un paso compartido para cada recorrido. Después de la implementación, 
 Abra la página Detalles de la aplicación y seleccione **[!UICONTROL Implementar]**.
 
 Seleccione el entorno de destino y luego seleccione **[!UICONTROL Implementar]**.
+
+Si los controladores utilizan [variables de aplicación](/help/guides/app-variables.md), configúrelas para el entorno de destino antes de implementarlas. Las variables agregadas, actualizadas o eliminadas tienen efecto en esta implementación; Fase y Producción tienen valores independientes.
 
 ![Implementar — seleccione el entorno de destino](/help/assets/guide-onboarding-agent/deploy-stage.png)
 
@@ -65,4 +65,3 @@ implementación más reciente correcta.
 
 - [Probar la aplicación implementada como un complemento de ChatGPT](/help/guides/test-in-chatgpt.md).
 - [Probar la aplicación implementada como un conector Claude](/help/guides/test-in-claude.md).
-
