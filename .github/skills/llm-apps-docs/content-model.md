@@ -1,9 +1,8 @@
 ---
-source-git-commit: bb3d8a02f22a91ceeeba5999453aeb4221060f80
+source-git-commit: 14d94a68dabddd2f2ef2cef65c51d31645d4a958
 workflow-type: tm+mt
-source-wordcount: '436'
+source-wordcount: '715'
 ht-degree: 0%
-
 ---
 # Modelo de contenido y terminología
 
@@ -18,14 +17,17 @@ Enseña a un nuevo usuario a través de un recorrido completo y correcto.
 - Explicar solo los conceptos necesarios en cada paso.
 - Termine con un resultado de trabajo y borre los pasos siguientes.
 
-Tutorial principal: `help/guides/create-app.md`.
+Recorrido de primera ejecución: `help/guides/create-app.md` (configuración de infraestructura), luego `help/guides/creating-actions.md` (generación y revisión de acciones).
 
 ### Concepto
 
 Explica cómo se relacionan las piezas sin convertirse en un procedimiento o catálogo de campos.
 
 - Céntrese en modelos mentales y límites de propiedad.
+- Explique lo que hace cada parte, cómo lo experimenta el usuario y dónde realizar cambios.
+- Mantenga las herramientas de generación, las rutas de acceso a archivos, las llamadas de protocolo y los contratos de código en las guías técnicas o referencias vinculadas, no en la descripción general.
 - Utilice un pequeño diagrama cuando mejore la comprensión.
+- Conservar los diagramas útiles existentes al simplificar una página; simplificar las etiquetas en lugar de eliminar la explicación visual.
 - Vínculo a tutoriales, guías de procedimientos y referencias.
 
 ### Guía de procedimientos
@@ -59,14 +61,19 @@ Comienza por un síntoma observable.
 
 - **Aplicaciones LLM de Adobe**: nombre completo del producto en la primera mención.
 - **Aplicación LLM**: una aplicación administrada por el producto.
-- **Crear mi aplicación** — sección IU en el cuadro de diálogo Crear aplicación.
-- **Crear mi aplicación automáticamente**: etiqueta de casilla de verificación exacta.
+- **Infraestructura administrada de Adobe**: infraestructura creada y administrada por Adobe; seleccione **Manejémosla** en el asistente para crear aplicaciones. No describa esta opción como de solo prueba ni realice reclamaciones no confirmadas sobre la idoneidad de la producción.
+- **Lo configuraré yo mismo**: opción de asistente para conectar sus propios repositorios, no es un requisito para escribir acciones manualmente. La ruta predeterminada comienza con dos repositorios vacíos que la plataforma inicializa; los proyectos existentes compatibles son opcionales.
+- **Generar acciones automáticamente**: opción de creación de acciones recomendada en la página de la aplicación después de configurar la infraestructura.
+- **Generar mis acciones**: botón que inicia la generación de acciones basadas en el sitio web.
 - **Acción**: capacidad expuesta a la plataforma LLM.
 - **Metadatos de acción**: nombre, descripción, esquema, anotaciones, visibilidad y configuración de widget almacenados por las aplicaciones LLM.
+- **Visibilidad**: el conmutador de activación/desactivación de la acción de la página de la aplicación. Controla si la siguiente implementación incluye la acción. El editor de acciones no tiene un conmutador habilitado independiente; la configuración de exposición del modelo y el widget tiene un propósito diferente.
 - **Controlador de acciones**: función del lado del servidor en el repositorio del controlador.
-- **Repositorio de controladores**: repositorio que contiene controladores y pruebas. Use la etiqueta de interfaz de usuario **Repositorio de plantillas** solo cuando describa ese control.
+- **Identificador de código**: identificador de acción inmutable utilizado en las llamadas MCP, distinto del nombre para mostrar. Los nombres de controladores y carpetas de bloques generados utilizan un formulario con guiones; el motor en tiempo de ejecución también resuelve guiones bajos en el identificador en guiones en las rutas de controladores.
+- **Repositorio de controladores**: repositorio que contiene controladores y pruebas, seleccionado durante la **configuración de la infraestructura de acción** al conectar sus propios repositorios.
 - **Repositorio de EDS**: el repositorio que contiene bloques de widgets y contenido.
 - **Widget** — respuesta visual representada en la plataforma LLM.
+- **`structuredContent`**: datos estructurados de resultados de acciones que usa el widget. No lo describa como privado, invisible para el modelo o sin token; forma parte del resultado de MCP que se entrega al host.
 - **URL del servidor MCP**: extremo implementado registrado con una plataforma LLM.
 - **Complemento ChatGPT**: la integración de ChatGPT creada a partir de la URL de un servidor MCP.
 - **Ensayo** y **Producción**: entornos de implementación.
@@ -75,13 +82,16 @@ Evite cambiar entre &quot;herramienta&quot; y &quot;acción&quot; en prosa orien
 
 El producto no depende de la plataforma: su servidor MCP funciona con cualquier plataforma LLM admitida, no solo con ChatGPT. Utilice &quot;una plataforma LLM compatible como ChatGPT&quot; (o similar) para reclamaciones generales o ilustrativas. Asigne un nombre a ChatGPT solo en el contenido que sea genuinamente específico de ChatGPT hoy en día: la guía Test in ChatGPT, sus vínculos cruzados directos y la referencia específica de ChatGPT para la resolución de problemas del contenido.
 
-## Recorrido de lector recomendado
+## Secuencia de lector recomendada
 
-1. Información general y requisitos previos.
-2. Crear una aplicación automáticamente.
-3. Revise las acciones generadas.
-4. Implemente para pruebas el complemento ChatGPT.
+1. Información general.
+2. Cree una aplicación con una infraestructura administrada de Adobe o sus propios repositorios.
+3. Inicie la generación de acciones basadas en sitios web desde la página de la aplicación y revise las acciones generadas.
+4. Implementar en fase y probar en una plataforma LLM compatible.
 5. Personalice los controladores y widgets generados.
 6. Implemente la aplicación personalizada en Producción.
 
 Crear una acción desde cero y traer un proyecto EDS son ramas avanzadas, no el recorrido predeterminado de primera ejecución.
+
+La guía de BYO EDS está oculta actualmente del índice con `hidefromtoc: true`.
+Conservar ese estado a menos que el usuario pida restaurar la entrada de navegación.

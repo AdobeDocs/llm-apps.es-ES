@@ -1,13 +1,11 @@
 ---
 title: Cómo se conecta una aplicación
-description: Una mirada más cercana a cómo las piezas que posee (metadatos de acción, código de controlador y widgets) se juntan en una aplicación LLM que se ejecuta, en el momento de la compilación y en el tiempo de ejecución.
-source-git-commit: 2f3480b3667a6ab7c4ed65b999eed4638c383edb
+description: Comprenda las tres partes de una aplicación LLM, cómo funcionan en una conversación y dónde realizar cambios.
+source-git-commit: af83670aebde1e6f73585c89a891bc7f5e92fb3a
 workflow-type: tm+mt
-source-wordcount: '335'
+source-wordcount: '573'
 ht-degree: 0%
-
 ---
-
 
 # Cómo se conecta una aplicación {#app-architecture}
 
@@ -17,69 +15,66 @@ ht-degree: 0%
 >
 >Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
-## En una frase
+Una **aplicación LLM** incorpora los servicios de tu marca en una conversación de IA. Por ejemplo, un cliente solicita recomendaciones de café, la aplicación encuentra productos coincidentes y el asistente muestra los resultados.
 
-Una aplicación **LLM** es un conjunto de **acciones** (cada una de ellas una herramienta expuesta a través del **Protocolo de contexto de modelo** o **MCP**) que publica en un único extremo. Un host de chat como [!DNL ChatGPT] descubre esas herramientas, las llama en mitad de la conversación y procesa un **widget interactivo** con el resultado, justo dentro del chat.
+**En esta guía:** Aprenda qué hace cada parte de la aplicación, dónde realizar cambios y cómo funcionan juntas esas partes cuando alguien usa la aplicación.
 
-## Todo el cableado, construye → corre
+## Las tres partes de una aplicación
 
-**Diagrama 1 — tiempo de compilación.** Dispone de tres superficies independientes; la plataforma las fusiona en una aplicación implementable.
+Una aplicación puede agrupar varias acciones relacionadas, como *Examinar productos*, *Comparar productos* y *Buscar una tienda*. Cada acción tiene su propia configuración, controlador y widget opcional. Para agregar una acción no es necesario otro par de repositorios.
 
-```
-┌─────────────────────┐   ┌─────────────────────┐   ┌─────────────────────┐
-│ 1  LLM Apps UI      │   │ 2  Action Handler   │   │ 3  Widget repo      │
-│                     │   │    repo             │   │                     │
-│ Create, edit, and   │   │                     │   │ Each widget is an   │
-│ manage your action  │   │ Business logic —    │   │ EDS block,          │
-│ definitions here    │   │ built from our      │   │ published to a      │
-│ (metadata)          │   │ boilerplate         │   │ public URL on       │
-│                     │   │                     │   │ *.aem.page          │
-│                     │   │ Returns content     │   │                     │
-│                     │   │ (for the LLM) +     │   │                     │
-│                     │   │ structuredContent   │   │                     │
-│                     │   │ (for the widget)    │   │                     │
-└─────────────────────┘   └─────────────────────┘   └─────────────────────┘
-           │                         │                         │
-           └─────────────────────────┼─────────────────────────┘
-                                     ▼
-                       ┌─────────────────────────────┐
-                       │ LLM Apps deploy pipeline    │
-                       │ Combines the 3 surfaces     │
-                       │ into one running app        │
-                       └─────────────────────────────┘
-                                     │
-                                     ▼
-                 ┌─────────────────────────────────────────┐
-                 │ ONE MCP server on Adobe I/O Runtime     │
-                 │ https://<ns>.adobeioruntime.net/.../mcp │
-                 └─────────────────────────────────────────┘
+Una aplicación con widgets interactivos consta de tres partes: configuración de acciones, código de controlador y código de widget. Usted administra la configuración en [!DNL LLM Apps]. El controlador y el código del widget se encuentran en dos repositorios [!DNL GitHub] independientes.
+
+```text
+┌───────────────────────┐   ┌───────────────────────┐   ┌───────────────────────┐
+│ 1. LLM Apps UI        │   │ 2. Handler repository │   │ 3. Widget repository  │
+│                       │   │                       │   │                       │
+│ Action descriptions   │   │ Connects to your APIs │   │ Widget layout         │
+│ Required information  │   │ Runs the task         │   │ Branding and styles   │
+│ When to use an action │   │ Returns results       │   │ Interactive controls  │
+└───────────────────────┘   └───────────────────────┘   └───────────────────────┘
+            │                           │                           │
+            └───────────────────────────┼───────────────────────────┘
+                                        ▼
+                    ┌───────────────────────────────────────┐
+                    │ Your app in an AI conversation        │
+                    │ The action runs and the widget        │
+                    │ shows the result.                     │
+                    └───────────────────────────────────────┘
 ```
 
-- **IU de aplicaciones LLM**: donde crea, edita y administra la definición de cada acción: su **identificador de código** (un slug fijo que configuró una vez aquí, por ejemplo `my_action`, que vincula esta misma acción en la interfaz de usuario, el controlador y el widget), descripción, esquema de entrada, opción de widget y indicadores de CSP/visibilidad. No hay código.
-- **Repositorio de Action Handler**: el repositorio del lado del servidor (andamiaje de nuestra plantilla) donde escribe la lógica empresarial. Cada función de controlador devuelve dos cosas: `content` (texto sin formato que lee *LLM*) y `structuredContent` (el objeto de datos que lee *widget*).
-- **Repositorio de widgets**: el repositorio EDS en el que cada widget vive como un bloque y se publica en una URL `*.aem.page` pública. Cada bloque utiliza [`@adobe/llmapps-sdk`](https://www.npmjs.com/package/@adobe/llmapps-sdk), el puente entre el widget y el host/servidor. Implementa la especificación de **aplicaciones MCP**, el protocolo subyacente, detrás de una API simple y abstrae el host LLM en sí, de modo que el mismo widget funciona sin modificaciones en [!DNL ChatGPT], [!DNL Claude], Gemini o cualquier otro host MCP.
+- **La configuración de acción describe la tarea.** Indican al asistente cuándo utilizar una acción y qué información necesita. Para la búsqueda de productos, esa información puede ser una categoría o un término de búsqueda.
+- **El controlador realiza el trabajo.** Obtiene datos de los sistemas o realiza una tarea. Un controlador de búsqueda de productos, por ejemplo, recupera los productos coincidentes del catálogo.
+- **El widget presenta el resultado.** Controla lo que el cliente ve e interactúa con, como tarjetas de producto con nombres, precios y botones.
 
-**Diagrama 2 — tiempo de ejecución.** Qué sucede en cada mensaje que envía el usuario una vez que un servidor está activo. Se muestra con [!DNL ChatGPT] como host de ejemplo; la misma secuencia se reproduce para cualquier host MCP, como [!DNL Claude].
+Se recomienda añadir un widget a cada acción. Un widget le permite controlar el aspecto de los resultados y la interacción de los clientes con ellos, en lugar de dejar la presentación al asistente de IA. También se admiten respuestas de solo texto.
 
-```
-┌── ChatGPT  (the MCP host) ──────────────────────────────────────────────┐
-│  1  tools/list  >  sees `my_action` + its description + input schema    │
-│  2  user asks   >  "I need help with …"                                 │
-│  3  model picks >  the description matches -> calls this tool           │
-│  4  tools/call  >  { name: "my_action", arguments: {situation, ...} }   │
-└─────────────────────────────────────────────────────────────────────────┘
-                                     │
-                 routes by CODE IDENTIFIER  ->  my_action
-                                     ▼
-┌── Adobe I/O Runtime ────────────────────────────────────────────────────┐
-│  actions/my_action/index.js  --  your handler runs                      │
-│  returns  { content -> text for the model , structuredContent -> data } │
-└─────────────────────────────────────────────────────────────────────────┘
-                                     │
-                                     ▼
-┌── Rendered inside the conversation ─────────────────────────────────────┐
-│  5  render      >  ChatGPT renders the Widget repo's EDS block          │
-│  The EDS block reads the structuredContent the Action Handler repo      │
-│  returned, and draws the interactive card — live, inside the chat.      │
-└─────────────────────────────────────────────────────────────────────────┘
-```
+## Dónde realizar cambios
+
+| Qué desea cambiar | Dónde se puede editar |
+|---|---|
+| Cuando el asistente utiliza una acción o qué información solicita la acción | [Configuración de acción en aplicaciones LLM](/help/reference/reference-docs.md) |
+| De dónde provienen los resultados o qué sucede cuando se ejecuta una acción | [Código de controlador en el repositorio de controladores](/help/guides/customize-handler.md) |
+| Aspecto de los resultados, incluido el diseño, la marca y las interacciones | [Código de widget en el repositorio de widget](/help/guides/widgets.md) |
+
+Mantenga las tres partes consistentes. Por ejemplo, si cambia la información que devuelve un controlador, actualice el widget para mostrar el nuevo resultado.
+
+## Qué sucede en una conversación
+
+Después de la implementación, su aplicación tendrá una URL de conexión llamada **URL del servidor MCP**. Añada esta URL a una plataforma de IA compatible para que el asistente pueda descubrir y utilizar las acciones de la aplicación.
+
+Para una aplicación con una acción de búsqueda de productos y un widget:
+
+1. Un cliente pregunta al asistente *Mostrarme cápsulas de café.*
+2. El asistente utiliza la descripción de la acción para elegir la acción de búsqueda de productos.
+3. El controlador obtiene los productos coincidentes del catálogo.
+4. El widget muestra los productos como tarjetas en la conversación.
+5. El cliente explora los resultados o hace una pregunta de seguimiento.
+
+El cliente permanece en la conversación mientras su aplicación proporciona la información o el servicio. La compatibilidad con widgets depende de la plataforma LLM.
+
+## Aplicar y probar los cambios
+
+Publique los cambios de los widgets e implemente cambios de las acciones antes de probar la experiencia actualizada. Siga [Implementar su aplicación](/help/guides/deploy-your-app.md) para implementarla en Fase y probar la aplicación en una plataforma LLM compatible.
+
+Las acciones generadas automáticamente comienzan con datos de ejemplo. Conecte los controladores a los sistemas reales y pruebe la aplicación antes de ponerla a disposición de los clientes.

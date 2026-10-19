@@ -1,9 +1,9 @@
 ---
 title: Configuración de variables y secretos de aplicaciones
 description: Añada variables específicas del entorno a la aplicación de aplicaciones LLM de Adobe, léalas en un controlador de acciones, implemente y solucione problemas comunes.
-source-git-commit: 141d7a263a6937299b3ff52bdcc7c16197e55632
+source-git-commit: 0f9dd0a5b1008e183eb8ab5a4c2eae34a78923bb
 workflow-type: tm+mt
-source-wordcount: '1158'
+source-wordcount: '1170'
 ht-degree: 1%
 ---
 
@@ -15,24 +15,24 @@ ht-degree: 1%
 >
 >Las funciones, los flujos de trabajo y la interfaz de usuario que se muestran aquí no representan necesariamente el estado final del producto. Para unirse a Beta, envíe un correo electrónico a llm-apps-beta@adobe.com.
 
-Utilice variables y secretos para configurar la aplicación sin codificar los valores en sus controladores de acciones. Por ejemplo, establezca la URL de la API del catálogo de productos a la que llama la aplicación, utilizando un servicio de prueba en Fase y el servicio activo en Producción, sin cambiar el código del controlador.
+Utilice variables y secretos para configurar la aplicación sin codificar los valores en sus controladores de acciones. Por ejemplo, configure la URL de la API del catálogo de productos para utilizar un servicio de prueba en Fase y el servicio activo en Producción sin cambiar el código del controlador.
 
 Las variables contienen configuraciones no confidenciales. Los secretos están destinados a valores confidenciales, como claves de API y tokens de acceso.
 
 >[!IMPORTANT]
 >
->Actualmente, solo se admiten **variables**. Se prevé compatibilidad secreta para una versión futura. Hasta entonces, **NO almacene** contraseñas, claves API, tokens de acceso u otra información confidencial **en las variables**: sus valores son visibles y se pueden copiar en la tabla de configuración.
+>Actualmente, la interfaz de usuario solo admite **variables**. Se prevé compatibilidad secreta para una versión futura. Hasta entonces, **NO almacene** contraseñas, claves de API, tokens de acceso u otra información confidencial **en las variables**: la tabla de configuración muestra los valores de las variables y permite a los usuarios copiarlos.
 
-**Recorrido:** Agregue una variable o secreto → leerlo en el controlador → implementar → prueba.
+**En esta guía:** Aprenda a agregar una variable de aplicación y leerla en un controlador de acciones. Implemente la aplicación y compruebe que el controlador utiliza el valor esperado.
 
 ## Antes de empezar {#before-you-begin}
 
 Necesita:
 
-- **Acceso al repositorio de controladores de su aplicación**, para que pueda actualizar los controladores y leer las variables si es necesario.
-- **`@adobe/llm-apps-runtime`1.1.0 o posterior** en ese repositorio. Las aplicaciones creadas desde agosto de 2026 ya lo incluyen.
+- **Acceso al repositorio de controladores de su aplicación** para actualizar los controladores que necesitan leer variables.
+- **`@adobe/llm-apps-runtime`1.1.0 o posterior** en ese repositorio. Compruebe la versión antes de utilizar el asistente que aparece a continuación.
 
-Para comprobar la versión, ejecute esto en el repositorio de controladores:
+Para comprobar la versión, ejecute el siguiente comando en el repositorio del controlador:
 
 ```bash
 npm ls @adobe/llm-apps-runtime
@@ -46,19 +46,16 @@ npm install @adobe/llm-apps-runtime@latest
 
 ## Administración de variables {#manage-variables}
 
-Cada entorno **[!UICONTROL Stage]** o **[!UICONTROL Production]** tiene sus propias variables. Compruebe **[!UICONTROL Workspace]** antes de agregar, actualizar o eliminar una. Los cambios surtirán efecto la próxima vez que implemente la aplicación en ese entorno.
+Cada entorno **[!UICONTROL Stage]** o **[!UICONTROL Production]** tiene sus propias variables. Compruebe **[!UICONTROL Workspace]** antes de agregar, actualizar o eliminar una variable. Los cambios surtirán efecto la próxima vez que implemente la aplicación en ese entorno.
 
 ### Agregar una variable {#add-variable-to-app}
 
-Esta guía utiliza una variable denominada `GREETING_PREFIX` con el valor `Good day` como ejemplo no confidencial, anulando el saludo predeterminado del controlador de `Hello`. Agregar una variable **no** cambia una acción automáticamente: el controlador **debe** leerla.
+Este ejemplo utiliza la variable no confidencial `GREETING_PREFIX` con el valor `Good day` para invalidar el saludo predeterminado del controlador de `Hello`. Agregar una variable **no** cambia una acción automáticamente: el controlador **debe** leer la variable.
 
 #### Paso 1: Agregar una variable en la interfaz de usuario {#add-a-variable}
 
 1. Abra la aplicación y seleccione **[!UICONTROL Configuración]** en el panel de navegación izquierdo.
 2. Abra la ficha **[!UICONTROL Variables y secretos]**.
-
-
-
 3. En **[!UICONTROL Workspace]**, seleccione **[!UICONTROL Fase]** o **[!UICONTROL Producción]**.
 4. Seleccione **[!UICONTROL Añadir]**.
 
@@ -71,13 +68,11 @@ Esta guía utiliza una variable denominada `GREETING_PREFIX` con el valor `Good 
 
    ![Agregar variable o secreto — GREETING_PREFIX establecido en Buen día](/help/assets/guide-app-variables/add-variable-dialog.png)
 
-6. Seleccione **[!UICONTROL Agregar]** para guardar.
+6. Para guardar la variable, seleccione **[!UICONTROL Agregar]**.
 
-La variable aparece en la tabla con sus fechas **[!UICONTROL Nombre]**, **[!UICONTROL Tipo]**, **[!UICONTROL Valor]** y **[!UICONTROL Última actualización]**. Utilice el control de copia junto al valor si necesita copiarlo.
+La variable aparece en la tabla con sus fechas **[!UICONTROL Nombre]**, **[!UICONTROL Tipo]**, **[!UICONTROL Valor]** y **[!UICONTROL Última actualización]**. Para copiar el valor, utilice el control de copia adyacente.
 
 ![Variables y secretos — GREETING_PREFIX guardado en el espacio de trabajo de ensayo](/help/assets/guide-app-variables/variable-added.png)
-
-
 
 >[!IMPORTANT]
 >
@@ -101,7 +96,7 @@ module.exports = async ({ name = 'there' } = {}, extra) => {
 
 Con el valor `Good day`, una llamada con `name` establecida en `Ada` devuelve `Good day, Ada!` en lugar del valor predeterminado `Hello, Ada!`. Si posteriormente cambia el valor a `Howdy`, el saludo cambiará después de volver a implementar, sin que se modifique ningún otro controlador.
 
-El nombre que aparece en su código **debe** coincidir exactamente con el nombre que aparece en la interfaz de usuario. Si la variable no está establecida, `getVariable` devuelve `undefined`. Decida si la acción puede utilizar un valor predeterminado adecuado, como en el ejemplo, o si debe devolver un error claro porque requiere la configuración.
+El nombre que aparece en su código **debe** coincidir exactamente con el nombre que aparece en la interfaz de usuario. Si la variable no está establecida, `getVariable` devuelve `undefined`. Elija un valor predeterminado adecuado, como en el ejemplo, o devuelva un error claro si la acción requiere la configuración.
 
 >[!NOTE]
 >
@@ -113,10 +108,9 @@ Cuando los cambios del controlador estén listos, confírmelos e insértelos en 
 
 1. [Implemente su aplicación](/help/guides/deploy-your-app.md) en el mismo entorno que seleccionó en **[!UICONTROL Workspace]**.
 2. Llame a la acción desde una plataforma LLM compatible con `name` establecida en `Ada`. Ver [Probar el complemento ChatGPT](/help/guides/test-in-chatgpt.md) o [Probar el conector Claude](/help/guides/test-in-claude.md).
-3. Confirme que la respuesta es `Good day, Ada!`. Esto confirma que el controlador lee la variable configurada y anula el saludo predeterminado.
+3. Confirme que la respuesta es `Good day, Ada!`. La respuesta comprueba que el controlador lee la variable configurada y anula el saludo predeterminado.
 
-Para configurar el otro entorno, selecciónelo en **[!UICONTROL Workspace]**, repita la instalación con el valor apropiado y, a continuación, implemente y verifique allí.
-
+Para configurar el otro entorno, selecciónelo en **[!UICONTROL Workspace]**, repita la instalación con el valor apropiado y, a continuación, implemente y pruebe la aplicación allí.
 
 >[!NOTE]
 >
@@ -138,7 +132,7 @@ Para configurar el otro entorno, selecciónelo en **[!UICONTROL Workspace]**, re
 3. Seleccione **[!UICONTROL Actualizar]**.
 4. Vuelva a implementar la aplicación en el mismo entorno y compruebe el comportamiento modificado.
 
-Al actualizar, solo se cambia el valor. No se puede cambiar el nombre de las variables **no puede**; para usar un nombre diferente, elimine la variable existente y agregue una nueva; a continuación, actualice el controlador para que lea el nuevo nombre.
+Al actualizar una variable, solo se cambia su valor. Usted **no puede** cambiar el nombre de variables. Para utilizar un nombre diferente, elimine la variable existente, agregue una variable nueva y actualice el controlador para que lea el nuevo nombre.
 
 ### Eliminar una variable {#delete-a-variable}
 
@@ -152,7 +146,7 @@ Al actualizar, solo se cambia el valor. No se puede cambiar el nombre de las var
 
 >[!IMPORTANT]
 >
->La eliminación **NO SE PUEDE** deshacer, así que asegúrese de seleccionar la variable correcta. La aplicación implementada mantiene su configuración existente hasta la siguiente implementación. Después de esa implementación, los controladores **ya no** reciben la variable eliminada, por lo que una acción que la requiera puede fallar.
+>Usted **NO PUEDE** deshacer la eliminación. Compruebe que ha seleccionado la variable correcta. La aplicación implementada mantiene su configuración existente hasta la siguiente implementación. Después de esa implementación, los controladores **ya no** reciben la variable eliminada, por lo que una acción que requiera la variable puede fallar.
 
 ## Reglas y límites {#good-to-know}
 
@@ -160,7 +154,7 @@ Al actualizar, solo se cambia el valor. No se puede cambiar el nombre de las var
 |------|------|
 | Nombre | Hasta 64 caracteres: letras mayúsculas, dígitos y guiones bajos, sin comenzar por un dígito. **Debe** ser único para cada aplicación y entorno, y debe coincidir con el controlador. |
 | Nombres reservados | Nombres que comienzan por `LLMA_` y `MCP_SERVER_URL`. |
-| Value | **Requerido**, hasta 500 caracteres. Se eliminan los espacios iniciales y finales. |
+| Value | **Requerido**, hasta 500 caracteres. La plataforma elimina los espacios iniciales y finales. |
 | Límite | 50 variables por aplicación y entorno. |
 | Visibilidad | Los valores de las variables son visibles y copiables. La compatibilidad con secretos planificada mantiene los valores guardados ocultos. |
 | Cambios | Tener efecto en la siguiente implementación en el entorno seleccionado. |
@@ -174,8 +168,8 @@ Al actualizar, solo se cambia el valor. No se puede cambiar el nombre de las var
 | *Este nombre está reservado por la plataforma* | Elija un nombre que no comience por `LLMA_` y que no sea `MCP_SERVER_URL`. |
 | *Ya existe una variable con este nombre* | Actualice la variable existente en su lugar. |
 | *Esta variable se acaba de modificar* | Actualice la página e inténtelo de nuevo. |
-| *No se pudieron cargar las variables* | Vuelva a cargar la página. Si persiste, compruebe que tiene acceso a la aplicación. |
-| La acción no utiliza el nuevo valor | Compruebe que ha implementado **después de** al guardar la variable en el mismo entorno que ha probado, que el cambio de controlador se ha insertado y que el nombre coincide con **exactamente**. **[!UICONTROL Última actualización]** muestra cuándo se guardó el valor, no cuándo se implementó. |
+| *No se pudieron cargar las variables* | Vuelva a cargar la página. Si el error persiste, compruebe que tiene acceso a la aplicación. |
+| La acción no utiliza el nuevo valor | Compruebe que implementó **after** al guardar la variable y probó el mismo entorno. Confirme que insertó el cambio de controlador y que el nombre de la variable coincide con **exactamente**. **[!UICONTROL Última actualización]** muestra cuándo guardó el valor, no cuándo implementó la aplicación. |
 | `getVariable is not a function` | La aplicación utiliza un tiempo de ejecución anterior a 1.1.0. Actualícelo como se describe en [Antes de comenzar](#before-you-begin) y luego impleméntelo. |
 | La acción falla después de eliminar una variable | Vuelva a agregar la variable o actualice el controlador para que ya no la necesite e implemente. |
 
