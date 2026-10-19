@@ -1,9 +1,9 @@
 ---
 title: Configuración de infraestructura
 description: Cree una aplicación LLM de Adobe con una infraestructura administrada de Adobe o proporcione dos repositorios vacíos de GitHub para que se inicialice la plataforma.
-source-git-commit: a48b4022979d9a13b4fc3aa870c4ee6375e8bc13
+source-git-commit: 14d94a68dabddd2f2ef2cef65c51d31645d4a958
 workflow-type: tm+mt
-source-wordcount: '1330'
+source-wordcount: '1337'
 ht-degree: 0%
 ---
 
@@ -44,14 +44,14 @@ El asistente de **[!UICONTROL Crear tu aplicación LLM]** comienza con **[!UICON
 
 | Opción de infraestructura | Seleccione en el asistente | Lo que significa |
 |---|---|---|
-| **Infraestructura administrada de Adobe** | **[!UICONTROL Permítanos manejarlo]** | Adobe crea y aloja los repositorios para una configuración de prueba. El acceso al código está disponible bajo petición y puede pasar a sus propios repositorios más adelante. |
+| **Infraestructura administrada de Adobe** | **[!UICONTROL Permítanos manejarlo]** | Adobe crea y administra los repositorios y los servicios conectados para la aplicación. El acceso al código está disponible bajo petición. |
 | **Sus propios repositorios** | **[!UICONTROL Lo configuraré yo mismo]** | Proporcione dos repositorios de GitHub vacíos y conceda acceso a través del asistente. La plataforma inicializa una para los controladores de acciones y otra para los widgets. |
 
 Ambas opciones admiten la generación automática de acciones más adelante. Ninguna de las opciones requiere que escriba las acciones manualmente.
 
 ## Uso de la infraestructura gestionada por Adobe {#adobe-managed-infrastructure}
 
-Use esta opción para probar la aplicación sin crear primero repositorios ni instalar aplicaciones de [!DNL GitHub].
+Utilice esta opción para permitir que Adobe configure y administre los repositorios y los servicios conectados de su aplicación. No necesita crear repositorios ni instalar aplicaciones de [!DNL GitHub] usted mismo.
 
 1. Seleccione **[!UICONTROL Permítanos manejarlo]**.
 2. Seleccione **[!UICONTROL Siguiente paso]**.

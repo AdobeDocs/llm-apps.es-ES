@@ -1,9 +1,9 @@
 ---
 name: llm-apps-docs
 description: Cree, revise y valide documentación de aplicaciones LLM de Adobe, aplique sus estándares editoriales y capture capturas de pantalla de la interfaz de usuario actuales mediante la automatización del explorador. Artículos, navegación, capturas de pantalla y paquetes de revisión sin conexión de llm-apps.en.
-source-git-commit: a48b4022979d9a13b4fc3aa870c4ee6375e8bc13
+source-git-commit: 14d94a68dabddd2f2ef2cef65c51d31645d4a958
 workflow-type: tm+mt
-source-wordcount: '1346'
+source-wordcount: '1380'
 ht-degree: 0%
 ---
 
@@ -41,6 +41,7 @@ solo el comportamiento que respaldan las pruebas disponibles.
 ## Creación de reglas
 
 - Dirija a los usuarios por primera vez a través de **Configuración de infraestructura**, luego **Crear acciones**. El asistente para crear aplicaciones configura solo la infraestructura; **[!UICONTROL Generar acciones automáticamente]** y **[!UICONTROL Generar mis acciones]** iniciará la generación de acciones basada en el sitio web más tarde, desde la página de la aplicación. Use **infraestructura administrada de Adobe** para la opción con la etiqueta **[!UICONTROL Permítanos manejarla]** en la interfaz de usuario.
+- Describa la infraestructura gestionada por Adobe de forma neutral a medida que Adobe crea y gestiona la infraestructura. No lo etiquete como una opción de prueba, de configuración temporal o que no sea solo de producción, y no haga declaraciones no confirmadas sobre la idoneidad de la producción.
 - Organizar la navegación alrededor de los recorridos y resultados del usuario, no de los temas de implementación.
 - Cerca del principio de cada guía, use **En esta guía:** seguido de una o dos frases en lenguaje sencillo que expliquen la tarea y el paso siguiente. Preferir &quot;Aprenda a...&quot; por encima de las promesas en el futuro. No utilice **Recorrido:** etiquetas o listas de pasos separadas por flechas.
 - No utilice nombres de código internos (por ejemplo, &quot;Agente de incorporación&quot;) en documentos de cliente; esa capacidad nunca se expone en la interfaz de usuario del producto. Descríbalo genéricamente (por ejemplo, &quot;la plataforma&quot;) y usa la copia exacta de la interfaz de usuario actual, como **[!UICONTROL Generar mis acciones]** para los controles.
@@ -52,7 +53,7 @@ solo el comportamiento que respaldan las pruebas disponibles.
 - Distingue el andamiaje generado de la integración lista para la producción.
 - Evite nombres de trabajadores internos, campos de base de datos, tickets de implementación y detalles de canalización inestables.
 - No duplique las tablas de campo entre las guías; vincule a la referencia.
-- Conservar el frontmatter y las directivas de Experience League: `[!DNL]`, &grave;&grave;, `[!IMPORTANT]`, `[!NOTE]` y `[!TIP]`.
+- Conservar el frontmatter y las directivas de Experience League: `[!DNL]`, ``, `[!IMPORTANT]`, `[!NOTE]` y `[!TIP]`.
 - Use vínculos internos relativos a la raíz: `/help/...`.
 - Utilice mayúsculas y minúsculas en los títulos y encabezados a menos que una etiqueta de producto requiera lo contrario.
 - Utilice un texto alternativo de imagen descriptivo que explique la pantalla y el estado.

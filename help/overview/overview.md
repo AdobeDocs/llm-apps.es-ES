@@ -1,9 +1,9 @@
 ---
 title: Información general sobre las aplicaciones LLM de Adobe
 description: Descubra qué son las aplicaciones LLM de Adobe, cómo funcionan y cómo empezar a crear su aplicación.
-source-git-commit: a48b4022979d9a13b4fc3aa870c4ee6375e8bc13
+source-git-commit: 14d94a68dabddd2f2ef2cef65c51d31645d4a958
 workflow-type: tm+mt
-source-wordcount: '621'
+source-wordcount: '606'
 ht-degree: 1%
 ---
 
@@ -50,7 +50,7 @@ Función del lado del servidor que se ejecuta cuando la plataforma LLM invoca un
 
 ### Widget {#widgets-eds}
 
-La respuesta visual que se muestra con la respuesta de LLM, como una tarjeta, un carrusel o una tabla. Los widgets generados son bloques de un repositorio [!DNL Edge Delivery Services] (EDS). Con la infraestructura gestionada por Adobe, Adobe prepara y aloja el repositorio para una versión de prueba. También puede conectar su propio repositorio.
+La respuesta visual que se muestra con la respuesta de LLM, como una tarjeta, un carrusel o una tabla. Los widgets generados son bloques de un repositorio [!DNL Edge Delivery Services] (EDS). Con la infraestructura gestionada por Adobe, Adobe prepara y aloja el repositorio por usted. También puede conectar su propio repositorio.
 
 ### servidor MCP
 
@@ -76,7 +76,7 @@ Para obtener detalles técnicos sobre qué generar y cómo funcionan juntos los 
 
 La creación de una aplicación y sus acciones son pasos independientes:
 
-1. [Configurar la infraestructura](/help/guides/create-app.md). Use la infraestructura administrada de Adobe para una versión de prueba o proporcione dos repositorios vacíos de [!DNL GitHub] mediante el asistente para crear aplicaciones. La plataforma inicializa una para los controladores de acciones y otra para los widgets.
+1. [Configurar la infraestructura](/help/guides/create-app.md). Use la infraestructura administrada de Adobe para realizar una configuración rápida o use sus propios repositorios de [!DNL GitHub].
 2. [Cree sus acciones](/help/guides/creating-actions.md). Pida a la plataforma que analice su sitio web y genere acciones, o que las cree usted mismo.
 3. [Implementar y probar la aplicación](/help/guides/deploy-your-app.md). Revise el trabajo generado, impleméntelo en Fase y pruébelo en una plataforma LLM compatible.
 

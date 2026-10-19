@@ -1,7 +1,7 @@
 ---
-source-git-commit: a48b4022979d9a13b4fc3aa870c4ee6375e8bc13
+source-git-commit: 14d94a68dabddd2f2ef2cef65c51d31645d4a958
 workflow-type: tm+mt
-source-wordcount: '701'
+source-wordcount: '715'
 ht-degree: 0%
 ---
 # Modelo de contenido y terminología
@@ -61,7 +61,7 @@ Comienza por un síntoma observable.
 
 - **Aplicaciones LLM de Adobe**: nombre completo del producto en la primera mención.
 - **Aplicación LLM**: una aplicación administrada por el producto.
-- **Infraestructura administrada de Adobe**: infraestructura de prueba creada y alojada por Adobe; seleccione **Permítanos manejarla** en el asistente para crear aplicaciones.
+- **Infraestructura administrada de Adobe**: infraestructura creada y administrada por Adobe; seleccione **Manejémosla** en el asistente para crear aplicaciones. No describa esta opción como de solo prueba ni realice reclamaciones no confirmadas sobre la idoneidad de la producción.
 - **Lo configuraré yo mismo**: opción de asistente para conectar sus propios repositorios, no es un requisito para escribir acciones manualmente. La ruta predeterminada comienza con dos repositorios vacíos que la plataforma inicializa; los proyectos existentes compatibles son opcionales.
 - **Generar acciones automáticamente**: opción de creación de acciones recomendada en la página de la aplicación después de configurar la infraestructura.
 - **Generar mis acciones**: botón que inicia la generación de acciones basadas en el sitio web.
