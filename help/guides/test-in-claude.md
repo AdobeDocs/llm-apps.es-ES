@@ -1,13 +1,13 @@
 ---
 title: Pruebe su aplicación LLM como conector Claude
 description: Cree un conector Claude desde la URL de su servidor MCP de aplicaciones LLM de Adobe y pruébelo en una conversación.
-source-git-commit: fd41dbcabc4db0cae766de19cb042d7c85d8b7aa
+source-git-commit: 0f9dd0a5b1008e183eb8ab5a4c2eae34a78923bb
 workflow-type: tm+mt
-source-wordcount: '448'
-ht-degree: 1%
+source-wordcount: '676'
+ht-degree: 0%
 ---
 
-# Probar su aplicación LLM como conector [!DNL Claude] {#test-in-claude}
+# Probar la aplicación LLM como conector [!DNL Claude] {#test-in-claude}
 
 >[!IMPORTANT]
 >
@@ -17,13 +17,15 @@ ht-degree: 1%
 
 Después de la implementación, la aplicación LLM expone la dirección URL de un servidor MCP. Agregue esta dirección URL a [!DNL Claude] como conector personalizado y, a continuación, pruebe las acciones y widgets generados.
 
-Este es el paso de verificación final después de crear, personalizar o ampliar una aplicación.
+**En esta guía:** Aprenda a agregar la aplicación implementada como conector de [!DNL Claude], elegir su comportamiento de inicio de sesión y probar sus acciones y widgets en una conversación.
 
-En esta guía se da por hecho que las acciones de la aplicación son públicas. Si la aplicación tiene habilitada la autenticación de usuario final, [!DNL Claude] le pedirá que inicie sesión con el proveedor de identidad de la aplicación para poder usar el conector y no se mostrará ninguna herramienta hasta que lo haga. Ver [Autenticar usuarios finales con su propio proveedor de identidad](/help/guides/authentication.md).
+Para una aplicación con acciones públicas y protegidas, [!DNL Claude] admite el inicio de sesión diferido hasta que llama a una acción protegida. Una aplicación cuyas acciones requieran autenticación debe iniciar sesión antes de utilizarla. Ver [Autenticar usuarios finales con su propio proveedor de identidad](/help/guides/authentication.md).
 
 ## Requisitos del plan
 
-Los conectores personalizados que utilizan MCP remoto están disponibles en los planes [!DNL Claude], [!DNL Claude] Desktop y Cowork para Free, Pro, Max, Team y Enterprise. Las cuentas de plan gratuito están limitadas a un conector personalizado. Para las organizaciones Equipo y Empresa, un Propietario o Propietario principal debe habilitar los conectores antes de que otros miembros puedan utilizarlos.
+Los conectores personalizados que utilizan MCP remoto están disponibles para los planes Free, Pro, Max, Team y Enterprise. Las cuentas gratuitas admiten un conector personalizado. En Equipo y Empresa, un propietario autorizado agrega el conector para la organización antes de que los miembros se conecten a ella. Los roles personalizados de empresa también pueden conceder ese permiso.
+
+Consulte las [instrucciones actuales del conector personalizado de Claude](https://claude.com/docs/connectors/custom/add-unlisted) para obtener los controles del plan y la organización. El punto final MCP remoto debe ser accesible desde la infraestructura de Claude, no solo desde su navegador local.
 
 ## Copiar la URL del servidor MCP
 
@@ -35,33 +37,32 @@ En [!DNL LLM Apps]:
 
 ## Añadir el conector personalizado
 
-1. Abra [claude.ai/new?modal=add-custom-connector](https://claude.ai/new?modal=add-custom-connector#settings/customize-connectors). Esto abre directamente el cuadro de diálogo **[!UICONTROL Agregar conector personalizado]**.
-2. Escriba
-   - **[!UICONTROL Nombre]**: el nombre del conector.
-   - **[!UICONTROL URL del servidor MCP remoto]**: la URL del servidor MCP que copió.
-3. Seleccione **[!UICONTROL Añadir]**.
+1. Abra [Personalizar > Conectores](https://claude.ai/customize/connectors). Para un conector para toda la organización, un propietario autorizado abre [Configuración de la organización > Conectores](https://claude.ai/admin-settings/connectors).
+2. Seleccione **[!UICONTROL Agregar conector personalizado]** o **[!UICONTROL Agregar]** > **[!UICONTROL Personalizado]** > **[!UICONTROL Web]** para el flujo de organización.
+3. Introduzca el nombre del conector si se solicita y pegue la dirección URL completa del servidor HTTPS MCP.
+4. Si el cuadro de diálogo tiene varios pasos, seleccione **[!UICONTROL Continuar]** y revise la configuración de autenticación detectada:
+   - **[!UICONTROL No se ha iniciado sesión]** en una aplicación pública con la autenticación deshabilitada.
+   - **[!UICONTROL Inicia sesión cuando sea necesario]** para una aplicación con acciones públicas y protegidas.
+   - **[!UICONTROL Inicie sesión ahora]** para solicitar el inicio de sesión antes de usar el conector.
+5. Para OAuth, elija un método de identidad de cliente compatible con el proveedor de identidad. Si utiliza un cliente preregistrado, introduzca sus detalles únicamente en la configuración de OAuth del conector, no en la URL o los metadatos de acción.
+6. Seleccione **[!UICONTROL Añadir]**. Para un conector de organización, cada miembro selecciona **[!UICONTROL Connect]** de su propia lista de conectores.
 
-   ![Claude — Agregar diálogo de conector personalizado](/help/assets/guide-test-claude/claude-add-custom-connector.png)
+Algunas cuentas muestran un cuadro de diálogo de una sola pantalla con **[!UICONTROL configuración avanzada]**, mientras que otras muestran un flujo de varios pasos. Use las [instrucciones actuales de la plataforma](https://claude.com/docs/connectors/custom/add-unlisted#choose-authentication-settings) si el diseño es distinto.
 
 >[!NOTE]
 >
->Utilice únicamente conectores de desarrolladores en los que confíe. Anthropic no controla qué herramientas ponen a disposición los desarrolladores y no puede verificar que funcionarán según lo previsto o que no cambiarán.
+>Utilice únicamente conectores de desarrolladores en los que confíe. Anthropic no controla qué herramientas ponen a disposición los desarrolladores o garantizan que esas herramientas funcionen según lo previsto o no cambien.
 
 ## Permitir las herramientas generadas
 
-Cada acción generada se enumera en **[!UICONTROL Permisos de herramientas]** en la página del conector. De manera predeterminada, las nuevas herramientas se establecen en **[!UICONTROL Necesita aprobación]**, lo que le solicita que apruebe cada llamada durante la prueba.
+[!DNL Claude] enumera cada acción generada en **[!UICONTROL Permisos de herramientas]** en la página del conector. Las nuevas herramientas tienen el valor predeterminado **[!UICONTROL Necesita aprobación]**, lo que le pedirá que apruebe cada llamada durante la prueba.
 
-Establezca cada herramienta (o todo el grupo de **[!UICONTROL herramientas interactivas]**) en **[!UICONTROL Permitir siempre]**, de modo que las pruebas no se interrumpan con las solicitudes de aprobación.
-
-![Claude — establece los permisos de la herramienta para Permitir siempre](/help/assets/guide-test-claude/claude-tool-permissions.png)
+Mantenga las solicitudes de aprobación habilitadas para acciones que cambien datos o realicen operaciones confidenciales. Use **[!UICONTROL Permitir siempre]** solo para acciones específicas de confianza y bajo riesgo cuando sea apropiado para su prueba.
 
 ## Compruebe el conector
 
 1. Iniciar una nueva conversación.
 2. Seleccione **+** en el cuadro de mensaje (o escriba `/`), coloque el puntero sobre **[!UICONTROL Conectores]** y encienda el conector que agregó para esta conversación.
-
-   ![Claude — habilita el conector para la conversación](/help/assets/guide-test-claude/claude-enable-connector-chat.png)
-
 3. Formule una pregunta que coincida con una de las acciones generadas. Por ejemplo: *Muéstreme un poco de café.*
 
 Compruebe que:
@@ -70,6 +71,10 @@ Compruebe que:
 - El widget muestra los datos de muestra esperados.
 - La respuesta del texto coincide con el widget.
 - Los controles de widget funcionan según lo esperado.
+
+Para la autenticación mixta, llame primero a una acción pública sin iniciar sesión. A continuación, llame a una acción protegida, complete la solicitud de inicio de sesión y confirme que la misma solicitud se realiza correctamente posteriormente. Pruebe también los permisos que faltan y la entrada no válida.
+
+Después de cambiar la aplicación, vuelva a implementarla y repita las pruebas afectadas. Si necesita cambiar la configuración de autenticación guardada de un conector, [!DNL Claude] puede requerir que quite y vuelva a agregar el conector.
 
 ## Siguientes pasos
 
