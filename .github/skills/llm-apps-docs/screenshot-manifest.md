@@ -1,7 +1,7 @@
 ---
-source-git-commit: a48b4022979d9a13b4fc3aa870c4ee6375e8bc13
+source-git-commit: 557173e8d95325b980efac4d72c06bb3d90dcd72
 workflow-type: tm+mt
-source-wordcount: '1052'
+source-wordcount: '1418'
 ht-degree: 1%
 ---
 # Manifiesto de captura de pantalla
@@ -135,6 +135,28 @@ respuesta. No verifica la interfaz de usuario de configuración actual. Nueva co
 las capturas de pantalla requieren acceso autenticado actual; de lo contrario, utilice el proveedor oficial
 y omita las imágenes no verificadas.
 
+## Configuración de Analytics
+
+Artículo: `/help/guides/analytics-setup.md`
+
+Directorio de salida: `help/assets/guide-analytics/`
+
+| Nombre del archivo | Estado y contexto útil | Texto alternativo sugerido |
+|---|---|---|
+| `analytics-settings.png` | Configuración de la aplicación, pestaña Analytics, Activar Analytics, ID de flujo de datos vacío, Requisitos ampliados, Guardar cambios deshabilitado | Configuración de la aplicación, pestaña Analytics: Activar Analytics, campo ID de flujo de datos vacío y lista de requisitos expandida |
+| `datastream-analytics-service.png` | Recopilación de datos, Añadir servicio, Adobe Analytics habilitado con un ID de grupo de informes ficticio | Añadir servicio: Adobe Analytics habilitado con un ID de grupo de informes de ejemplo |
+| `datastream-platform-service.png` | Recopilación de datos, servicio Adobe Experience Platform con solo el conjunto de datos de evento seleccionado | Servicio de Adobe Experience Platform: el conjunto de datos de evento seleccionado y las demás opciones borradas |
+| `datastream-services.png` | Detalles de la secuencia de datos con ambos servicios habilitados, un ID de secuencia de datos ficticio y el esquema de asignación | Detalles del flujo de datos: ambos servicios habilitados, con el ID de flujo de datos de ejemplo y el esquema de asignación |
+
+Nunca capture un ID de flujo de datos real. No seleccione **Guardar cambios**: después de guardar,
+solo un administrador puede cambiar la secuencia de datos. Mostrar Experience Platform, Adobe Analytics,
+y pantallas de Customer Journey Analytics solo cuando muestran una configuración específica de
+Aplicaciones LLM; vínculo a Experience League para todo lo demás. Reemplazar organización
+nombres, ID de grupos de informes, ID de flujos de datos, ID de conjuntos de datos, correos electrónicos y nombres personales
+con estos valores ficticios: `example-org`, `demo.<suffix>` grupos de informes,
+`00000000-0000-0000-0000-000000000000`, `0000…0001`, `user@example.com` y
+`Example User`.
+
 ## Procedencia de captura existente
 
 La ejecución de captura del 19/10/2026 utilizó la interfaz de usuario local solicitada por el usuario, con la IU/API coincidente
@@ -162,3 +184,25 @@ el interruptor sigue siendo el control de activación/desactivación de la acci�
 permanecer en el editor. El vínculo del repositorio está enmascarado y la navegación de la cuenta es
 excluido. No se guardó, aprobó, alternó ni implementó ninguna acción durante esta actualización.
 Captura sin procesar: `docs-captures/2026-10-19/remove-enabled/`.
+
+### Configuración de Analytics, 21-10-2026
+
+Se actualizó `guide-analytics/analytics-settings.png` desde el archivo proporcionado por el usuario
+`Screenshot 2026-10-21 at 11.48.36.png`, no es una ejecución controlada por agente. Origen
+entorno: no grabado y no visible en la imagen; la paridad de producción no
+verificado. Revisión visual confirmada: Habilitar Analytics está activado y el campo ID de secuencia de datos
+está vacío, Requisitos se expande y Guardar cambios está deshabilitado. La imagen era
+se copia sin ediciones; no hay identificadores ni detalles de cuenta visibles.
+
+### Capturas de pantalla de flujo de datos, 19-10-2026
+
+Se agregó `guide-analytics/datastream-analytics-service.png`,
+`datastream-platform-service.png` y `datastream-services.png` de los existentes
+capturas de recopilación de datos internas (29-07-2026 y 10-19-2026). ID del grupo de informes
+y el ID de flujo de datos se reemplazaron con superposiciones de texto ficticio (`demo.aem.llm` y
+`00000000-0000-0000-0000-000000000000`); la fuente de superposición es San Francisco, por lo que
+difiere ligeramente de la fuente del producto. La imagen del servicio de plataforma no era necesaria para
+cambios. La imagen del servicio de Analytics sigue mostrando el puntero del ratón desde el
+captura original. Un paso de OCR sobre las imágenes finales no encontró identificadores originales.
+Sustitúyalas por capturas nuevas que utilicen valores ficticios escritos en la interfaz de usuario al
+el artículo se actualizará a continuación.

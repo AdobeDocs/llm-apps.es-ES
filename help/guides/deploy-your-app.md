@@ -1,9 +1,9 @@
 ---
 title: Implemente la aplicación
 description: Aprenda a implementar la aplicación LLM de Adobe en el ensayo y la producción mediante la interfaz de usuario de las aplicaciones LLM.
-source-git-commit: a48b4022979d9a13b4fc3aa870c4ee6375e8bc13
+source-git-commit: 557173e8d95325b980efac4d72c06bb3d90dcd72
 workflow-type: tm+mt
-source-wordcount: '412'
+source-wordcount: '444'
 ht-degree: 0%
 ---
 
@@ -58,11 +58,14 @@ Cada fila muestra el destino **Entorno** (Fase o Producción), **Estado** (Corre
 
 ## Implementar cambios de configuración
 
-Los cambios en los metadatos de acciones, los modificadores **[!UICONTROL Visibilidad]** de la página de la aplicación, la autenticación y las variables de la aplicación se aplicarán en la siguiente implementación en ese entorno. Guardar una configuración no actualiza por sí solo el servidor MCP implementado.
+Los cambios en los metadatos de acciones, los modificadores **[!UICONTROL Visibilidad]** de la página de la aplicación, la autenticación, las variables de la aplicación y la configuración de Analytics se aplicarán en la siguiente implementación en ese entorno. Guardar una configuración no actualiza por sí solo el servidor MCP implementado.
 
 Compruebe el entorno de destino cada vez. La implementación en fase no implementa los mismos cambios en Producción.
+
+Si la aplicación no cumple los requisitos de tiempo de ejecución de Analytics o SDK, [Actualice una aplicación existente](/help/guides/upgrade-existing-app.md) antes de volver a implementarla.
 
 ## Siguiente paso
 
 - [Probar la aplicación implementada como un complemento de ChatGPT](/help/guides/test-in-chatgpt.md).
 - [Probar la aplicación implementada como un conector Claude](/help/guides/test-in-claude.md).
+- [Envíe los eventos de su aplicación a Adobe Analytics o Customer Journey Analytics](/help/guides/analytics-setup.md).

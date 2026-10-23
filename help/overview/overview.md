@@ -1,9 +1,9 @@
 ---
 title: Información general sobre las aplicaciones LLM de Adobe
 description: Descubra qué son las aplicaciones LLM de Adobe, cómo funcionan y cómo empezar a crear su aplicación.
-source-git-commit: 14d94a68dabddd2f2ef2cef65c51d31645d4a958
+source-git-commit: 557173e8d95325b980efac4d72c06bb3d90dcd72
 workflow-type: tm+mt
-source-wordcount: '606'
+source-wordcount: '624'
 ht-degree: 1%
 ---
 
@@ -81,3 +81,5 @@ La creación de una aplicación y sus acciones son pasos independientes:
 3. [Implementar y probar la aplicación](/help/guides/deploy-your-app.md). Revise el trabajo generado, impleméntelo en Fase y pruébelo en una plataforma LLM compatible.
 
 La generación automática le proporciona un punto de partida con el comportamiento de ejemplo. Antes de poner la aplicación a disposición de los clientes, [conecta tus controladores a tus sistemas](/help/guides/customize-handler.md) y [personaliza los widgets](/help/guides/widgets.md).
+
+Para informar sobre tu aplicación en tu propio [!DNL Adobe Analytics] o [!DNL Customer Journey Analytics], consulta [Configurar Adobe Analytics y Customer Journey Analytics](/help/guides/analytics-setup.md).
