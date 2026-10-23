@@ -46,7 +46,7 @@ Cree el área de nombres, el esquema, el conjunto de datos y el conjunto de dato
 Necesita:
 
 - **Un tiempo de ejecución y SDK compatibles.** El repositorio del controlador debe usar `@adobe/llm-apps-runtime` 1.2.0 o posterior. Para los widgets de EDS, utilice la versión LLM Apps SDK 0.1.13 o posterior. Para actualizar una aplicación anterior a la última versión en tiempo de ejecución y a SDK antes de habilitar Analytics, sigue [Actualizar una aplicación existente](/help/guides/upgrade-existing-app.md). Las aplicaciones que cumplen estos requisitos no necesitan una actualización.
-- **Los grupos de campos agénticos.** Su organización debe estar habilitada para los grupos de campos Información de agente y Evento de conversación. Si estos grupos de campos no aparecen al agregar grupos de campos a un esquema, póngase en contacto con el equipo de cuenta de Adobe. Ver [Implementar perspectivas de conversación](https://experienceleague.adobe.com/en/docs/analytics-platform/using/conversation-insights/implement#schema-and-datasets). Las llamadas de acción se registran en el campo `agenticExperience.tools` de Información de agente, que se encuentra en Beta en [!DNL Experience Platform].
+- **Los grupos de campos agénticos.** Su organización debe estar habilitada para los grupos de campos Información de agente y Evento de conversación. Si estos grupos de campos no aparecen al agregar grupos de campos a un esquema, póngase en contacto con el equipo de cuenta de Adobe. Ver [Implementar perspectivas de conversación](https://experienceleague.adobe.com/es/docs/analytics-platform/using/conversation-insights/implement#schema-and-datasets). Las llamadas de acción se registran en el campo `agenticExperience.tools` de Información de agente, que se encuentra en Beta en [!DNL Experience Platform].
 - **[!DNL Experience Platform]permisos** para crear áreas de nombres, esquemas, conjuntos de datos y flujos de datos de identidad en su zona protegida.
 - **Para el permiso [!DNL Adobe Analytics]:** para administrar grupos de informes y reglas de procesamiento. Los administradores de productos tienen ambas de forma predeterminada.
 - **Para [!DNL Customer Journey Analytics]:** acceso de administrador de producto para crear conexiones y vistas de datos.
@@ -60,7 +60,7 @@ Después de habilitar Analytics e implementar, la aplicación envía dos tipos d
 | Llamada de acción | `mcp.tool_call` | La plataforma LLM llama a una de las acciones de su aplicación, incluidas las llamadas que generan errores o devuelven un mensaje de inicio de sesión. | El identificador de código de la acción y si la llamada ha fallado. La intención del usuario, cuando la acción la recopila y la plataforma proporciona una. Cuando la plataforma los proporciona: el nombre de la plataforma, el ID de conversación, el ID de usuario de la plataforma, la configuración regional y la organización, y la ubicación aproximada del usuario. |
 | Interacción de widget | `web.webinteraction.linkClicks` | Alguien selecciona un vínculo o un botón en un widget de Edge Delivery Services. | Etiqueta del vínculo o botón, de hasta 100 caracteres. Cuando la llamada de acción lo proporciona, su ID de conversación y su ID de turno. Adobe Web SDK también agrega la dirección URL del marco del widget, el tamaño de la pantalla y de la ventana del explorador, la zona horaria local y su propia versión. |
 
-En [!DNL Adobe Analytics], cada llamada de acción cuenta como una vista de página de una página llamada `mcp:<code identifier>`, y cada interacción de widget cuenta como un clic en vínculo. Ver [tipos de eventos de Edge Network en Adobe Analytics](https://experienceleague.adobe.com/en/docs/analytics/implementation/aep-edge/hit-types).
+En [!DNL Adobe Analytics], cada llamada de acción cuenta como una vista de página de una página llamada `mcp:<code identifier>`, y cada interacción de widget cuenta como un clic en vínculo. Ver [tipos de eventos de Edge Network en Adobe Analytics](https://experienceleague.adobe.com/es/docs/analytics/implementation/aep-edge/hit-types).
 
 Cada llamada de acción y cada interacción de widget es una visita de [!DNL Adobe Analytics] y un evento en su conjunto de datos de [!DNL Experience Platform]. En una aplicación con mucho tráfico, compruebe que el contrato cubre este volumen antes de activar Analytics.
 
@@ -106,7 +106,7 @@ Las llamadas de acción identifican a las personas en el área de nombres `MCPHO
 | Símbolo de identidad | `MCPHOSTUSER`, exactamente como se muestra |
 | Tipo de identidad | **[!UICONTROL ID individual entre dispositivos]** |
 
-Para ver el procedimiento, vea [Crear áreas de nombres personalizadas](https://experienceleague.adobe.com/en/docs/experience-platform/identity/features/namespaces#create-namespaces).
+Para ver el procedimiento, vea [Crear áreas de nombres personalizadas](https://experienceleague.adobe.com/es/docs/experience-platform/identity/features/namespaces#create-namespaces).
 
 ## Paso 2: Crear el esquema {#schema}
 
@@ -127,7 +127,7 @@ Tanto la secuencia de datos como el conjunto de datos utilizan este esquema. Cre
 
 No necesita el grupo de campos Adobe Analytics ExperienceEvent. La intención del usuario alcanza [!DNL Adobe Analytics] a través de una regla de procesamiento. Consulte [Paso 4](#report-suite).
 
-Para ver el procedimiento, consulte [Crear un nuevo esquema](https://experienceleague.adobe.com/en/docs/experience-platform/xdm/ui/resources/schemas#create) y [Agregar grupos de campos](https://experienceleague.adobe.com/en/docs/experience-platform/xdm/ui/resources/schemas#add-field-groups).
+Para ver el procedimiento, consulte [Crear un nuevo esquema](https://experienceleague.adobe.com/es/docs/experience-platform/xdm/ui/resources/schemas#create) y [Agregar grupos de campos](https://experienceleague.adobe.com/es/docs/experience-platform/xdm/ui/resources/schemas#add-field-groups).
 
 ## Paso 3: crear el conjunto de datos {#dataset}
 
@@ -141,7 +141,7 @@ El conjunto de datos almacena los eventos de su aplicación en [!DNL Experience 
 | Esquema | El esquema de [Paso 2](#schema) |
 | Nombre | Cualquier nombre, por ejemplo `AEM LLM Apps` |
 
-Para ver el procedimiento, consulte [Crear un conjunto de datos](https://experienceleague.adobe.com/en/docs/experience-platform/catalog/datasets/user-guide#create).
+Para ver el procedimiento, consulte [Crear un conjunto de datos](https://experienceleague.adobe.com/es/docs/experience-platform/catalog/datasets/user-guide#create).
 
 ## Paso 4: Preparar el grupo de informes {#report-suite}
 
@@ -153,7 +153,7 @@ Para ver el procedimiento, consulte [Crear un conjunto de datos](https://experie
 
 Cree un grupo de informes o elija uno existente. Observe el ID del grupo de informes completo, incluido el prefijo que agrega [!DNL Adobe Analytics]. Necesita el identificador en [Paso 5](#datastream).
 
-Para ver el procedimiento, consulte [Crear un grupo de informes](https://experienceleague.adobe.com/en/docs/analytics/admin/admin-tools/manage-report-suites/c-new-report-suite/t-create-a-report-suite).
+Para ver el procedimiento, consulte [Crear un grupo de informes](https://experienceleague.adobe.com/es/docs/analytics/admin/admin-tools/manage-report-suites/c-new-report-suite/t-create-a-report-suite).
 
 ### Habilitar la intención de usuario en eVar {#user-intent-evar}
 
@@ -170,11 +170,11 @@ En las variables de conversión del grupo de informes, habilite una eVar con la 
 
 Si el grupo de informes ya utiliza eVar3, elija otro eVar que no utilice y utilice ese eVar en la regla de procesamiento.
 
-Para ver el procedimiento, consulte [Agregar o editar variables de conversión](https://experienceleague.adobe.com/en/docs/analytics/admin/admin-tools/manage-report-suites/edit-report-suite/conversion-variables/conversion-var-admin#add-or-edit-conversion-variables).
+Para ver el procedimiento, consulte [Agregar o editar variables de conversión](https://experienceleague.adobe.com/es/docs/analytics/admin/admin-tools/manage-report-suites/edit-report-suite/conversion-variables/conversion-var-admin#add-or-edit-conversion-variables).
 
 ### Creación de la regla de procesamiento {#processing-rule}
 
-[!DNL Adobe Analytics] recibe la intención del usuario como una variable de datos de contexto, no como una eVar. Para saber por qué, vea [Asignación implícita](https://experienceleague.adobe.com/en/docs/analytics/implementation/aep-edge/xdm-var-mapping#implicit-mapping). Cree una regla de procesamiento que copie la intención del usuario en eVar:
+[!DNL Adobe Analytics] recibe la intención del usuario como una variable de datos de contexto, no como una eVar. Para saber por qué, vea [Asignación implícita](https://experienceleague.adobe.com/es/docs/analytics/implementation/aep-edge/xdm-var-mapping#implicit-mapping). Cree una regla de procesamiento que copie la intención del usuario en eVar:
 
 - **Condición:** la variable de datos de contexto `a.x.conversation.prompt.raw.0.purpose` es igual a `intents`.
 - **Acción:** sobrescribe el valor de **Intención de usuario (eVar3)** con la variable de datos de contexto `a.x.conversation.prompt.raw.0.text`.
@@ -183,7 +183,7 @@ Sin esta regla, la dimensión **Intención de usuario** permanece vacía. La reg
 
 Otros campos, como si la llamada falló o el nombre de la plataforma, también llegan como variables de datos de contexto. Para informar sobre ellos en [!DNL Adobe Analytics], cree más reglas de procesamiento del mismo modo.
 
-Para ver el procedimiento, consulte [Información general sobre las reglas de procesamiento](https://experienceleague.adobe.com/en/docs/analytics/admin/admin-tools/manage-report-suites/edit-report-suite/report-suite-general/processing-rules/pr-overview) y [Casos de uso de reglas de procesamiento](https://experienceleague.adobe.com/en/docs/analytics/admin/admin-tools/manage-report-suites/edit-report-suite/report-suite-general/processing-rules/pr-use-cases).
+Para ver el procedimiento, consulte [Información general sobre las reglas de procesamiento](https://experienceleague.adobe.com/es/docs/analytics/admin/admin-tools/manage-report-suites/edit-report-suite/report-suite-general/processing-rules/pr-overview) y [Casos de uso de reglas de procesamiento](https://experienceleague.adobe.com/es/docs/analytics/admin/admin-tools/manage-report-suites/edit-report-suite/report-suite-general/processing-rules/pr-use-cases).
 
 ## Paso 5: Crear la secuencia de datos {#datastream}
 
@@ -202,7 +202,7 @@ Cree una secuencia de datos con esta configuración:
 
 Cree la secuencia de datos en el mismo entorno limitado que el esquema. No se puede cambiar la zona protegida de un conjunto de datos después de crearlo.
 
-Para ver el procedimiento, vea [Crear un conjunto de datos](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/configure#create).
+Para ver el procedimiento, vea [Crear un conjunto de datos](https://experienceleague.adobe.com/es/docs/experience-platform/datastreams/configure#create).
 
 ### Añadir los servicios {#add-services}
 
@@ -217,7 +217,7 @@ Añada un servicio para cada destino:
 
 ![servicio Adobe Experience Platform: el conjunto de datos de evento seleccionado y las demás opciones borradas](/help/assets/guide-analytics/datastream-platform-service.png)
 
-Para ver el procedimiento, consulte [Agregar servicios a un conjunto de datos](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/configure#add-services), [Configuración de Adobe Analytics](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/configure#analytics) y [Configuración de Adobe Experience Platform](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/configure#aep).
+Para ver el procedimiento, consulte [Agregar servicios a un conjunto de datos](https://experienceleague.adobe.com/es/docs/experience-platform/datastreams/configure#add-services), [Configuración de Adobe Analytics](https://experienceleague.adobe.com/es/docs/experience-platform/datastreams/configure#analytics) y [Configuración de Adobe Experience Platform](https://experienceleague.adobe.com/es/docs/experience-platform/datastreams/configure#aep).
 
 A continuación, copie el **[!UICONTROL ID de secuencia de datos]** de los detalles de la secuencia de datos. Lo necesita en [Paso 6](#enable-analytics).
 
@@ -273,7 +273,7 @@ Cree una conexión y agregue el conjunto de datos desde [Paso 3](#dataset) con e
 
 Con este ID de persona, [!DNL Customer Journey Analytics] usa la identidad principal de cada evento como persona y omite los eventos que no tienen identidad principal. Ver [Cómo los eventos identifican personas](#identities).
 
-Para ver el procedimiento, consulte [Crear una conexión](https://experienceleague.adobe.com/en/docs/analytics-platform/using/cja-connections/create-connection#create-connection), [Configuración del conjunto de datos de eventos](https://experienceleague.adobe.com/en/docs/analytics-platform/using/cja-connections/create-connection#event-dataset-settings) y [Usar mapa de identidad como ID de persona](https://experienceleague.adobe.com/en/docs/analytics-platform/using/cja-connections/create-connection#id-map).
+Para ver el procedimiento, consulte [Crear una conexión](https://experienceleague.adobe.com/es/docs/analytics-platform/using/cja-connections/create-connection#create-connection), [Configuración del conjunto de datos de eventos](https://experienceleague.adobe.com/es/docs/analytics-platform/using/cja-connections/create-connection#event-dataset-settings) y [Usar mapa de identidad como ID de persona](https://experienceleague.adobe.com/es/docs/analytics-platform/using/cja-connections/create-connection#id-map).
 
 ### Creación de la vista de datos {#data-view}
 
@@ -299,7 +299,7 @@ Añada estos campos de esquema como componentes:
 
 Añada campos de texto, como la intención del usuario, como dimensiones. Un campo de texto agregado como métrica solo se puede contar y, al desglosarlo por sus valores, se muestra **No válido**.
 
-Para ver el procedimiento, vea [Configurar una vista de datos](https://experienceleague.adobe.com/en/docs/analytics-platform/using/cja-dataviews/create-dataview#configure) y [Componentes](https://experienceleague.adobe.com/en/docs/analytics-platform/using/cja-dataviews/create-dataview#components).
+Para ver el procedimiento, vea [Configurar una vista de datos](https://experienceleague.adobe.com/es/docs/analytics-platform/using/cja-dataviews/create-dataview#configure) y [Componentes](https://experienceleague.adobe.com/es/docs/analytics-platform/using/cja-dataviews/create-dataview#components).
 
 ## Paso 8: Verificar los datos e implementar en Producción {#verify}
 
@@ -315,7 +315,7 @@ Llame a una acción en la aplicación Stage desde una plataforma LLM compatible 
 
 Cada servicio procesa los datos con cierto retraso, por lo que los nuevos eventos no aparecen inmediatamente.
 
-Para generar los informes, consulte [Crear proyectos en Adobe Analytics](https://experienceleague.adobe.com/en/docs/analytics/analyze/analysis-workspace/build-workspace-project/create-projects), [Descripción general de tablas de forma libre](https://experienceleague.adobe.com/en/docs/analytics/analyze/analysis-workspace/visualizations/freeform-table/freeform-table) y [Crear proyectos en Customer Journey Analytics](https://experienceleague.adobe.com/en/docs/analytics-platform/using/cja-workspace/build-workspace-project/create-projects).
+Para generar los informes, consulte [Crear proyectos en Adobe Analytics](https://experienceleague.adobe.com/es/docs/analytics/analyze/analysis-workspace/build-workspace-project/create-projects), [Descripción general de tablas de forma libre](https://experienceleague.adobe.com/es/docs/analytics/analyze/analysis-workspace/visualizations/freeform-table/freeform-table) y [Crear proyectos en Customer Journey Analytics](https://experienceleague.adobe.com/es/docs/analytics-platform/using/cja-workspace/build-workspace-project/create-projects).
 
 Cuando los datos parezcan correctos, [implemente su aplicación](/help/guides/deploy-your-app.md) en Producción.
 
