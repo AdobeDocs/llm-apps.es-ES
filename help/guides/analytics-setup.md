@@ -30,14 +30,14 @@ Complete cada paso marcado como **Requerido** para los servicios que use. Un pas
 
 | Paso | [!DNL Adobe Analytics] | [!DNL Customer Journey Analytics] |
 |---|---|---|
-| [1. Crear el área de nombres de identidad ](#identity-namespace) | Necesario | Necesario |
-| [2. Crear el esquema ](#schema) | Necesario | Necesario |
-| [3. Crear el conjunto de datos ](#dataset) | No se necesita | Requerido |
+| [1. Crear el área de nombres de identidad &#x200B;](#identity-namespace) | Necesario | Necesario |
+| [2. Crear el esquema &#x200B;](#schema) | Necesario | Necesario |
+| [3. Crear el conjunto de datos &#x200B;](#dataset) | No se necesita | Requerido |
 | [4. Preparar el grupo de informes](#report-suite) | Requerido | No se necesita |
-| [5. Crear la secuencia de datos ](#datastream) | Necesario | Necesario |
+| [5. Crear la secuencia de datos &#x200B;](#datastream) | Necesario | Necesario |
 | [6. Habilitar Analytics e implementar en fase](#enable-analytics) | Necesario | Necesario |
-| [7. Crear la conexión y la vista de datos ](#cja) | No se necesita | Requerido |
-| [8. Verificar los datos e implementar en el entorno de producción ](#verify) | Necesario | Necesario |
+| [7. Crear la conexión y la vista de datos &#x200B;](#cja) | No se necesita | Requerido |
+| [8. Verificar los datos e implementar en el entorno de producción &#x200B;](#verify) | Necesario | Necesario |
 
 Cree el área de nombres, el esquema, el conjunto de datos y el conjunto de datos en la misma zona protegida de [!DNL Experience Platform]. Utilice la zona protegida y la secuencia de datos de los que planea informar en Producción. Después de guardar la secuencia de datos en la aplicación, póngase en contacto con el equipo de aplicaciones LLM para cambiarla.
 
